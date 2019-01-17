@@ -91,7 +91,12 @@ $cpass=$_POST['Users']['confirmpass'];
     {
         $errmsg .= "Enter minimum 5-8 characters <br>";
         $check=1;
-    }
+	}
+	
+	if($pass !== $cpass){
+		$errmsg .="passwords dnt match";
+		$check=1;
+	}
     if($check==0)
     {
         $errmsg .= "Form Successfully Logged In";
