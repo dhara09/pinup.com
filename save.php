@@ -16,6 +16,6 @@ if(!mysqli_query($con,$sql) && !mysqli_query($con,$sql1) )
 else
 {
      echo "<br> Record added successfully !!!!!</br>";
-    include("profile.php");
+    header("Location:profile.php");
 }
 ?>
