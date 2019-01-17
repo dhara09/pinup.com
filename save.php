@@ -1,6 +1,5 @@
 <?php
 include('connection.php');
-
 $sql = "INSERT INTO User (name,lastname,email,password,confirmpass)
 VALUES (' ".$_POST['Users']['name']." ',' ".$_POST['Users']['lastname']." ',' ".$_POST['Users']['email']." ',' ".$_POST['Users']['password']." ',' ".$_POST['Users']['confirmpass']."')";
 
@@ -16,7 +15,7 @@ if(!mysqli_query($con,$sql) && !mysqli_query($con,$sql1) )
 }
 else
 {
-    die ("<br> Record added successfully !!!!!</br>");
+     echo "<br> Record added successfully !!!!!</br>";
     include("profile.php");
 }
 ?>
