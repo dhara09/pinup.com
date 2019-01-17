@@ -1,12 +1,12 @@
-<!--  <script>
+<script>
 $(document).ready(function()
 { 
-	$("input,textarea").focus(function()
+	$("input").focus(function()
 	{
     	$(this).next("span").empty();
 	});
 
-		$("submit").submit(function()
+		$("#submit").submit(function()
     {
 				var names=$("#name1").val();
 				var check=1;
@@ -17,7 +17,7 @@ $(document).ready(function()
 				}
 				else if(!names.match('\^[a-zA-Z]*$'))
 				{
-					 $("#namespan").text("Enter only alphabets");
+					 $("#namespan").text("Enter only alphabets").show();
 					 check=0;
 				}
 
@@ -29,7 +29,7 @@ $(document).ready(function()
 				}
 				else if(!lnames.match('\^[a-zA-Z]*$'))
 				{
-					$("#lnamespan").text("Enter only alphabets");
+					$("#lnamespan").text("Enter only alphabets").show();
 					check=0;
 				}
 				var emails=$("#email1").val();
@@ -40,7 +40,7 @@ $(document).ready(function()
 				} 
 				else if (!emails.match('/^([w-.]+@([w-]+.)+[w-]{2,4})?$/'))
 				{
-					$("#emailspan").text("Enter valid email address");
+					$("#emailspan").text("Enter valid email address").show();
 					check=0;
 				} 
 				var contacts =$("#contact1").val();
@@ -51,12 +51,12 @@ $(document).ready(function()
 				}
 				else if(!contacts.match('^[0-9]*$') )
 				{
-					$("#contactspan").text("Enter only Numbers");
+					$("#contactspan").text("Enter only Numbers").show();
 					check=0;
 				}
 				else if(contacts.length() > 10)
 				{
-					$("#contactspan").text("Enter only 10 digits Number");
+					$("#contactspan").text("Enter only 10 digits Number").show();
 					check=0;
 				}
 				var addr1=$("#address1").val();
@@ -79,19 +79,22 @@ $(document).ready(function()
 					$("#cpaspan").text("Please fill this field").show();
 					check=0;
 				}
+
+        if($pass !== $cpass){
+          $("#cpaspan").text("password dont match").show();
+        }
 				return false;
 				if(check==1)
 				{ alert("form submitted"); }
 		});
 });
 </script>
-
 <style>
 .error
 {
   color:red;
 }
-</style> --> 
+</style>
 <?php
 include('validation.php');
 ?>
