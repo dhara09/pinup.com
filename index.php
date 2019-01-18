@@ -1,7 +1,3 @@
-<?php
-// include('login.php');
-// include('signup.php');
-?>
 <html>
 <center>
 <button onclick="window.location.href='login.php'" type="submit" value="submit" name="submit">Login</button>
