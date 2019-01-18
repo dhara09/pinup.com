@@ -10,32 +10,42 @@
     <script type="text/javascript"></script> 
      <script>
      $(document).ready(function(){
-        $("input").focus(function()
+       $("input,textarea").focus(function()
 	    {
-    	    $(this).next("span").empty();
-	    });
+    	   $(this).next("span").empty();
+	    });  
 
-	    $("#submit").submit(function()
+	    $("#button").click(function()
         {
             var names=$("#name1").val();
 			var check=1;
-
-			if ($ ($names).val() === "")
-			{
-				$("#namespan").text("Please fill the field").show();
+            if(names=="")
+            {
+				$("#namespan").text("Please fill this field").show();
 				check=0;
 			}
-        });
-     });
+            var pass=$("#pass1").val();
+            if(pass == "")
+            {
+                $("#passpan").text("Please fill this field").show();
+                check=0;
+            }
+        
+			if(check==1)
+			{ 
+                alert("success");
+                window.location.href='loginCheck.php';
+            }
+            return false;
+		});
+      });
      </script> 
      <style>
-     .error{
-         color:red;
+     .error
+     {
+        color:red;
      }  
      </style>
-     <?php
-     include('loginCheck.php');
-     ?>
         <label for="name"><b>Name</b></label>
         <br><input id ="name1" type="text" placeholder="Enter Name" name="Users[name]"></br>
         <span class='error'></span>
@@ -46,9 +56,8 @@
         <span class='error'></span>
         <span id="passpan" class="error"></span>
 
-        <button type="submit" value="submit" name="submit">Login</button>
-            
+        <button type="submit" value="submit" id="button" name="button">Login</button>
+
         <?php 
-         //if(isset($_GET['errmsg']))echo $_GET['errmsg']; 
         if($errmsg!= "")echo $errmsg; 
-        ?> 
+        ?>
