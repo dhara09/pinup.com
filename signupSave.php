@@ -1,6 +1,7 @@
 <?php
 if(isset($_POST['submit']) )
 {
+//print_r($_POST);
 $name=$_POST['Users']['name'];
 $lname=$_POST['Users']['lastname'];
 $email=$_POST['Users']['email'];
@@ -83,7 +84,6 @@ $cpass=$_POST['Users']['confirmpass'];
     {
         $errmsg .=" Please confirm your password <br>";
         $check=1;
-
     }
 
     else if(strlen($cpass)<=5)
@@ -104,9 +104,8 @@ $cpass=$_POST['Users']['confirmpass'];
 	//echo $errmsg;
     //header("Location:http://local.pinup.com/signup.php?error=$errmsg");
 }
-
-
-function Insertdata($table,$field_values,$data_values)
+//echo "test";
+ function Insertdata($table,$field_values,$data_values)
 {
 
     $field_values= implode(',',$field);
@@ -116,12 +115,12 @@ function Insertdata($table,$field_values,$data_values)
     $result=$con->query($sql);
 }
 $query = Insertdata('User',$_POST['User']); 
-mysqli_close($con);
+mysqli_close($con); 
+ 
 
 
-
-
-/* $sql = "INSERT INTO User (name,lastname,email,password,confirmpass)
+include('connection.php');
+$sql = "INSERT INTO User (name,lastname,email,password,confirmpass)
 VALUES (' ".$_POST['Users']['name']." ',' ".$_POST['Users']['lastname']." ',' ".$_POST['Users']['email']." ',' ".$_POST['Users']['password']." ',' ".$_POST['Users']['confirmpass']."')";
 
 if(!mysqli_query($con,$sql))
@@ -131,8 +130,8 @@ if(!mysqli_query($con,$sql))
 else
 {
     echo "<br> Record added successfully !!!!!</br>";
-    include("welcome.php");
-} */
+    //include("welcome.php");
+} 
 
 
 // inserting data into db and include('welcome.php');
