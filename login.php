@@ -8,11 +8,47 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script type="text/javascript"></script> 
-        
-        <label for="name"><b>Name</b></label>
-        <br><input type="text" placeholder="Enter Name" name="Users[name]"></br>
-       
-        <label for="password"><b>Password</b></label>
-        <br><input type="text" placeholder="Enter password" name="Users[password]"></br>
+     <script>
+     $(document).ready(function(){
+        $("input").focus(function()
+	    {
+    	    $(this).next("span").empty();
+	    });
 
-        <button onclick="window.location.href='check.php'" type="submit" class="loginbtn" value="submit" name="submit">Login</button>
+	    $("#submit").submit(function()
+        {
+            var names=$("#name1").val();
+			var check=1;
+
+			if ($ ($names).val() === "")
+			{
+				$("#namespan").text("Please fill the field").show();
+				check=0;
+			}
+        });
+     });
+     </script> 
+     <style>
+     .error{
+         color:red;
+     }  
+     </style>
+     <?php
+     include('loginCheck.php');
+     ?>
+        <label for="name"><b>Name</b></label>
+        <br><input id ="name1" type="text" placeholder="Enter Name" name="Users[name]"></br>
+        <span class='error'></span>
+	    <span id="namespan" class="error"></span>
+
+        <label for="password"><b>Password</b></label>
+        <br><input id ="pass1" type="text" placeholder="Enter password" name="Users[password]"></br>
+        <span class='error'></span>
+        <span id="passpan" class="error"></span>
+
+        <button type="submit" value="submit" name="submit">Login</button>
+            
+        <?php 
+         //if(isset($_GET['errmsg']))echo $_GET['errmsg']; 
+        if($errmsg!= "")echo $errmsg; 
+        ?> 
