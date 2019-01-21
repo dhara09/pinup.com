@@ -1,14 +1,13 @@
 <?php
 if(isset($_POST['submit']) )
 {
-//print_r($_POST);
-$name=$_POST['Users']['name'];
-$lname=$_POST['Users']['lastname'];
-$email=$_POST['Users']['email'];
-$address=$_POST['UserDetail']['address'];
-$contact=$_POST['UserDetail']['contact'];
-$pass=$_POST['Users']['password'];
-$cpass=$_POST['Users']['confirmpass']; 
+    $name=$_POST['Users']['name'];
+    $lname=$_POST['Users']['lastname'];
+    $email=$_POST['Users']['email'];
+    $address=$_POST['UserDetail']['address'];
+    $contact=$_POST['UserDetail']['contact'];
+    $pass=$_POST['Users']['password'];
+    $cpass=$_POST['Users']['confirmpass']; 
  
     if(empty($name))
     {   
@@ -99,13 +98,32 @@ $cpass=$_POST['Users']['confirmpass'];
     if($check==0)
     {
         $errmsg .= "Form Successfully Logged In";
-        //include('connection.php');
+        
 	}
 	//echo $errmsg;
     //header("Location:http://local.pinup.com/signup.php?error=$errmsg");
 }
-//echo "test";
- function Insertdata($table,$field_values,$data_values)
+echo "Registration is done <br />";
+include("connection.php");
+header("Location:welcome.php");
+exit;
+
+function Insertdata($table,$field_values,$data_values)
+    {
+        $field_values= implode(',',$field);
+        $data_values=implode(',',$data);
+
+        $sql="INSERT into". " ".$table." ".$field_values. "VALUES(".$data_values.")";
+        $result=$conn->query($sql);
+    }
+    $query = Insertdata('User',$_POST['Users']);
+
+    //$query = sqlInsert('student',$_POST['student']);
+    $query1=Insertdata('userDetail',$_POST['UserDetails']); 
+    mysqli_close($conn);
+
+
+ /* function Insertdata($table,$field_values,$data_values)
 {
 
     $field_values= implode(',',$field);
@@ -115,13 +133,19 @@ $cpass=$_POST['Users']['confirmpass'];
     $result=$con->query($sql);
 }
 $query = Insertdata('User',$_POST['User']); 
-mysqli_close($con); 
+mysqli_close($con);  */
  
 
 
-include('connection.php');
+/* include('connection.php');
+
+$pass=$_POST['password'];
+$cpass=$_POST['confirmpass'];
+$encryptpass=md5($pass);
+$encryptcpass=md5($cpass);
+
 $sql = "INSERT INTO User (name,lastname,email,password,confirmpass)
-VALUES (' ".$_POST['Users']['name']." ',' ".$_POST['Users']['lastname']." ',' ".$_POST['Users']['email']." ',' ".$_POST['Users']['password']." ',' ".$_POST['Users']['confirmpass']."')";
+VALUES (' ".$_POST['Users']['name']." ',' ".$_POST['Users']['lastname']." ',' ".$_POST['Users']['email']." ',' ".$encryptpass." ',' ".$encryptcpass."')";
 
 if(!mysqli_query($con,$sql))
 {
@@ -131,7 +155,7 @@ else
 {
     echo "<br> Record added successfully !!!!!</br>";
     //include("welcome.php");
-} 
+}  */
 
 
 // inserting data into db and include('welcome.php');
