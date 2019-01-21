@@ -19,17 +19,13 @@ if(isset($_POST['button']))
     }
     if ($check==0)
     {
-        echo "done";
-        //$errmsg .="logged in successfully";
+        //echo "done";
+        $errmsg .="logged in successfully";
+        include("welcome.php");
         //echo "<script>alert('logged in'); window.location = 'welcome.php'</script>";
-
-        //include("welcome.php");
-       // header("location:welcome.php");
     }
     header("Location:http://local.pinup.com/login.php?error=$errmsg");
-    //header("Location:welcome.php");
 }
-
 
 
 
@@ -50,6 +46,7 @@ if(isset($_POST['button']))
 
 /* ------------------------------------------- */
 include('connection.php');
+
 function Insertdata($table,$field_values,$data_values)
     {
         $field_values= implode(',',$field);
