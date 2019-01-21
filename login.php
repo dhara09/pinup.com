@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script type="text/javascript"></script> 
-   <script>
+<!--    <script>
      $(document).ready(function(){
        $("input,textarea").focus(function()
 	    {
@@ -40,11 +40,11 @@
       });
      </script>  
      <style> 
-     <!-- .error
+    .error
      {
         color:red;
      }  
-     </style> -->
+     </style>  -->
      <form name="button" action="loginCheck.php" method="POST">
         <label for="name"><b>Name</b></label>
         <br><input id ="name1" type="text" placeholder="Enter Name" name="Users[name]"></br>
