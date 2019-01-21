@@ -11,9 +11,9 @@ $(document).ready(function()
 	});
 	$("#submit").click(function()
     {
-		var names=$("#name1").val();
 		var check=1;
-        if(names=="")
+		var names=$("#name1").val();
+        if(names =="")
         {
 			$("#namespan").text("Please fill this field").show();
 			check=0;
@@ -29,7 +29,7 @@ $(document).ready(function()
 		if(lnames == "")
 		{
 			$("#lnamespan").text("please fill this field").show();
-			$check=0;
+			check=0;
 		}
 
 		else if(!lnames.match('\^[a-zA-Z]*$'))
@@ -42,49 +42,42 @@ $(document).ready(function()
 		if(email == "")
 		{
 			$("#emailspan").text("please fill this field").show();
-			$check=0;
+			check=0;
 		}
-		/* else if(!email.match('/^([w-.]+@([w-]+.)+[w-]{2,4})?$/'))
-		{
-			$("#emailspan").text("Enter valid email address").show();
-			$check=0;
-		} */
-		
 		var address=$("#address1").val();
 		if(address == "")
 		{
 			$("#addr1span").text("please fill this field").show();
-			$check=0;
+			check=0;
 		}
 		
 		var contact=$("#contact1").val();
 		if(contact == "")
 		{
 			$("#contact1span").text("please fill this field").show();
-			$check=0;
+			check=0;
 		}
 		else if(!contact.match('^[0-9]*$'))
 		{
 			$("#contact1span").text("Use only numbers").show();
-			$check=0;	
+			check=0;	
 		}
-		 /* else if(contact.length() >10)
-		{
-			$("#contact1span").text("Only 10 digit Number").show();
-			$check=0;
-
-		}  */
 		var pass=$("#password1").val();
 		if(pass == "")
 		{
 			$("#passspan").text("please fill this field").show();
-			$check=0;
+			check=0;
 		}
 		var cpass=$("#confrmpass1").val();
 		if(cpass== "")
 		{
 			$("#cpaspan").text("please fill this field").show();
-			$check=0;
+			check=0;
+		}
+		if(pass!=cpass)
+		{
+			$("#cpaspan").text("pass dnt match").show();
+			check=0;
 		}
 		if(check==1)
 		{ 
@@ -101,6 +94,7 @@ $(document).ready(function()
   color:red;
 }
 </style> 
+		<form name="button" action="signupSave.php" method="POST">
           <label for="name"><b>Name</b></label>
           <br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]"  ></br>
           <span class='error'></span>
@@ -127,18 +121,16 @@ $(document).ready(function()
 		      <span id="contact1span" class="error"></span>
 
           <label for="psw"><b>Password</b></label>
-          <br><input id="password1" type="text" placeholder="Enter Password" name="Users[password]"></br>
+          <br><input id="password1" type="password" placeholder="Enter Password" name="Users[password]"></br>
            <span class='error'></span>
 		        <span id="passspan" class="error"></span>
 
           <label for="pswd"><b>Confirm password</b></label>
-          <br><input id="confrmpass1" type="text" placeholder="confirm password" name="Users[confirmpass]"></br>
+          <br><input id="confrmpass1" type="password" placeholder="confirm password" name="Users[confirmpass]"></br>
           <span class='error'></span>
-		      <span id="cpaspan" class="error"></span>
+		  <span id="cpaspan" class="error"></span>
 
           <button type="submit" value="submit" id="submit" name="submit" class="signupbtn" style="align:justify">Register</button>
-          <?php 
-          // if(isset($_GET['errmsg']))echo $_GET['errmsg']; 
-             if($errmsg!= "")echo $errmsg; 
-            ?> 
+        </form> 
+		  <?php  if($errmsg!= "")echo $errmsg;  ?> 
          
