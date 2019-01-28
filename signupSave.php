@@ -1,4 +1,5 @@
 <?php
+require_once("connection.php");
 if(isset($_POST['submit']) )
 {
     $name=$_POST['Users']['name'];
@@ -100,63 +101,92 @@ if(isset($_POST['submit']) )
         $errmsg .= "Form Successfully Logged In";
         
 	}
-	//echo $errmsg;
-    //header("Location:http://local.pinup.com/signup.php?error=$errmsg");
+    header("Location:http://local.pinup.com/signup.php?error=$errmsg");
 }
-echo "Registration is done <br />";
-include("connection.php");
-header("Location:welcome.php");
-exit;
+?>
+<?php
 
-function Insertdata($table,$field_values,$data_values)
-    {
-        $field_values= implode(',',$field);
-        $data_values=implode(',',$data);
-
-        $sql="INSERT into". " ".$table." ".$field_values. "VALUES(".$data_values.")";
-        $result=$conn->query($sql);
-    }
-    $query = Insertdata('User',$_POST['Users']);
-
-    //$query = sqlInsert('student',$_POST['student']);
-    $query1=Insertdata('userDetail',$_POST['UserDetails']); 
-    mysqli_close($conn);
-
-
- /* function Insertdata($table,$field_values,$data_values)
-{
-
-    $field_values= implode(',',$field);
-    $data_values=implode(',',$data);
-
-    $sql="INSERT into". " ".$table." ".$field_values. "VALUES(".$data_values.")";
-    $result=$con->query($sql);
-}
-$query = Insertdata('User',$_POST['User']); 
-mysqli_close($con);  */
- 
-
-
-/* include('connection.php');
-
-$pass=$_POST['password'];
-$cpass=$_POST['confirmpass'];
-$encryptpass=md5($pass);
-$encryptcpass=md5($cpass);
-
-$sql = "INSERT INTO User (name,lastname,email,password,confirmpass)
-VALUES (' ".$_POST['Users']['name']." ',' ".$_POST['Users']['lastname']." ',' ".$_POST['Users']['email']." ',' ".$encryptpass." ',' ".$encryptcpass."')";
-
+/* $sql = "INSERT INTO User (name,lastname,email,password,confirmpass)
+VALUES (' ".$_POST['Users']['name']." ',' ".$_POST['Users']['lastname']." ',' ".$_POST['Users']['email']." ',' ".$_POST['Users']['password']." ',' ".$_POST['Users']['confirmpass']."')";
 if(!mysqli_query($con,$sql))
 {
     die("<br> Error: Record not inserted ".mysqli_error());
 }
 else
 {
-    echo "<br> Record added successfully !!!!!</br>";
-    //include("welcome.php");
+    echo ("<br> Record added successfully !!!!!</br>");
+    header("Location: welcome.php");
 }  */
+ /*------------------------------------------------------------------------------ */
+  /*  function sqlInsert($table, $cols, $values)
+    {
+        echo $insertquery = "INSERT INTO " . $table . " (" . $cols . ") VALUES (" . $values . ")";
+        $insertresult = mysqli_query($con, $insertquery) or die(mysqli_error($con));
+        return $insertresult;
+    }
+    $values = array(
+        '$name'=> $name,
+        '$lastname'=> $lastname,
+    );
+    $query1=sqlInsert('Users',$_POST['Users']);  */
 
+/* =--------------------------------------------------------------------------------- */
+   $form_data=array(
+        '$name' => $_POST['Users']['name'],
+        '$lastname' => $_POST['Users']['lastname'],
+        '$email' => $_POST['Users']['email'],
+        '$password' => $_POST['Users']['password'],
+        '$cpass' => $_POST['Users']['confirmpass'],
+    );
 
-// inserting data into db and include('welcome.php');
+    function dbRowInsert($table_name, $form_data)
+    {
+        $fields = array_keys($form_data);
+        echo $sql = "INSERT INTO ".$table_name."(".implode('`,`', $fields).")
+                VALUES('".implode("','", $form_data)."')";
+        return mysqli_query($sql);
+    }
+        $query=dbRowInsert('Users',$_POST['Users']);
+
+        if(!mysqli_query($con,$query))
+        {    
+            die("<br> Error: Record not inserted ".mysqli_error());
+        }
+        else
+        {
+            echo "<br> Record added successfully !!!!!</br>";
+            //header("Location:welcome.php");
+        }  
+        mysqli_close($con);  
+    /* --------------------------------------------------------------------------------------- */
+      /* function Insertdata($table,$field_values,$data_values)
+      {   
+        $field_values= implode(',',$field);
+        $data_values=implode(',',$data);
+
+        $sql="INSERT into". " ".$table." ".$field_values. "VALUES(".$data_values.")";
+        $result=$con->query($sql);
+      }
+        $query = Insertdata('User',$_POST['Users']); */
+/* ---------------------------------------------------------------------------------------------------- */
+          
+         /* $name=$_POST['Users']['name'];
+          $lname=$_POST['Users']['lastname'];
+          $email=$_POST['Users']['email'];
+          $pass=$_POST['Users']['password'];
+          echo $query = "INSERT INTO User (name,lastname,email,password,) 
+                    VALUES (' ".$name." ',' ".$lname." ',' ".$email." ',' ".$pass."')";
+                    
+           $results = mysqli_query($dbname, $query);
+           if(!mysqli_query($con,$sql))
+           {    
+             die("<br> Error: Record not inserted ".mysqli_error());
+            }
+            else
+            {
+                echo "<br> Record added successfully !!!!!</br>";
+                header("Location:welcome.php");
+            }  
+  	   */
+
 ?>
