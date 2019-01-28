@@ -32,7 +32,7 @@
             }
 			if(check==1)
 			{ 
-                alert("Successfully Logged in !!");
+                //alert("Successfully Logged in !!");
                 window.location.href='loginCheck.php';
             }
             return false;
