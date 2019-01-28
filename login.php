@@ -7,8 +7,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script type="text/javascript"></script> 
-<!--    <script>
+ <script type="text/javascript"></script> 
+   <script>
      $(document).ready(function(){
        $("input,textarea").focus(function()
 	    {
@@ -32,7 +32,7 @@
             }
 			if(check==1)
 			{ 
-                alert("success");
+                alert("Successfully Logged in !!");
                 window.location.href='loginCheck.php';
             }
             return false;
@@ -44,7 +44,7 @@
      {
         color:red;
      }  
-     </style>  -->
+     </style>
      <form name="button" action="loginCheck.php" method="POST">
         <label for="name"><b>Name</b></label>
         <br><input id ="name1" type="text" placeholder="Enter Name" name="Users[name]"></br>
@@ -57,8 +57,11 @@
         <span id="passpan" class="error"></span>
 
         <button type="submit" value="submit" id="button" name="button">Login</button>
-
+        <p>
+  		Not yet a member? <a href="signup.php">Sign up</a>
+  	</p>
     </form>
     <?php
      if(isset($_GET['error']))echo $_GET['error'];
+     //if($errmsg!= "")echo $errmsg;  
      ?> 
