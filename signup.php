@@ -81,7 +81,8 @@ $(document).ready(function()
 		}
 		if(check==1)
 		{ 
-			alert("success");
+			alert("Successfully register..!!");
+			//header("Location: welcome.php");
             window.location.href='signupSave.php';
         }
         return false;
