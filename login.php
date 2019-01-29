@@ -8,15 +8,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
  <script type="text/javascript"></script> 
-   <script>
-     $(document).ready(function(){
-       $("input,textarea").focus(function()
-	    {
-    	   $(this).next("span").empty();
-	    });  
-
-	    $("#button").click(function()
-        {
+  <script>
+      $(document).ready(function(){
+        $(document).keypress(function(e) {
+            $('span').hide();
+        });
+	   $("#button").click(function()
+       {
             var names=$("#name1").val();
 			var check=1;
             if(names=="")
@@ -32,34 +30,31 @@
             }
 			if(check==1)
 			{ 
-                //alert("Successfully Logged in !!");
                 window.location.href='loginCheck.php';
             }
             return false;
-		});
-      });
-     </script>  
-     <style> 
-    .error
-     {
-        color:red;
-     }  
-     </style>
-     <form name="button" action="loginCheck.php" method="POST">
-        <label for="name"><b>Name</b></label>
-        <br><input id ="name1" type="text" placeholder="Enter Name" name="Users[name]"></br>
+	    });
+    });
+
+ </script>  
+ <style> 
+  .error{
+   color:red;}  
+ </style>
+    <form name="button" action="loginCheck.php" method="POST">
+        <label for="name"><b>Username</b></label>
+        <br><input id ="name1" type="text" placeholder="Enter Username" name="Users[name] 
+        value="<?php echo isset($_POST['Users']['name']) ? $_POST['Users']['name'] : ''; ?>"></br>
         <span class='error'></span>
 	    <span id="namespan" class="error"></span>
 
         <label for="password"><b>Password</b></label>
-        <br><input id ="pass1" type="text" placeholder="Enter password" name="Users[password]"></br>
+        <br><input id ="pass1" type="password" placeholder="Enter password" name="Users[password]"></br>
         <span class='error'></span>
         <span id="passpan" class="error"></span>
 
         <button type="submit" value="submit" id="button" name="button">Login</button>
-        <p>
-  		Not yet a member? <a href="signup.php">Sign up</a>
-  	</p>
+        <p>Not yet a member? <a href="signup.php">Sign up</a></p>
     </form>
     <?php
      if(isset($_GET['error']))echo $_GET['error'];
