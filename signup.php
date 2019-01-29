@@ -3,12 +3,10 @@
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript"></script> 
 <script>
-$(document).ready(function()
-{	
-	$("input").focus(function()
-	{
-    	$(this).next("span").empty();
-	});
+ $(document).ready(function(){
+    $(document).keypress(function(e) {
+        $('span').hide();
+    });
 	$("#submit").click(function()
     {
 		var check=1;
@@ -42,6 +40,11 @@ $(document).ready(function()
 		if(email == "")
 		{
 			$("#emailspan").text("please fill this field").show();
+			check=0;
+		}
+		else if(!email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
+		{
+			$("#emailspan").text("Enter valid email address ").show();
 			check=0;
 		}
 		var address=$("#address1").val();
@@ -88,13 +91,13 @@ $(document).ready(function()
         return false;
 	});
 });
-</script>
+</script> 
 <style>
 .error
 {
   color:red;
 }
-</style> 
+</style>   
 		<form name="button" action="signupSave.php" method="POST">
           <label for="name"><b>Name</b></label>
           <br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]"  ></br>
@@ -102,12 +105,12 @@ $(document).ready(function()
 	      	<span id="namespan" class="error"></span>
 
           <label for="lastname"><b>Last Name</b></label>
-          <br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]" value="salot" ></br>
+          <br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]" ></br>
           <span class='error'></span>
 		      <span id="lnamespan" class="error"></span>
 
           <label for="email"><b>Email</b></label>
-          <br> <input id="email1" type="text" placeholder="Enter Email" name="Users[email]" value="abc@gmail.com"></br>
+          <br> <input id="email1" type="text" placeholder="Enter Email" name="Users[email]" ></br>
           <span class='error'></span>
 	      	<span id="emailspan" class="error"></span>
 
@@ -133,5 +136,8 @@ $(document).ready(function()
 
           <button type="submit" value="submit" id="submit" name="submit" class="signupbtn" style="align:justify">Register</button>
         </form> 
-		  <?php  if($errmsg!= "")echo $errmsg;  ?> 
+		<?php 
+		if(isset($_GET['error']))echo $_GET['error'];
+		  //if($errmsg!= "")echo $errmsg;  
+		  ?> 
          
