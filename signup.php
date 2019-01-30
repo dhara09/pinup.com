@@ -3,7 +3,7 @@
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript"></script> 
 <script>
- $(document).ready(function(){
+   $(document).ready(function(){
     $(document).keypress(function(e) {
         $('span').hide();
     });
@@ -65,6 +65,10 @@
 			$("#contact1span").text("Use only numbers").show();
 			check=0;	
 		}
+		else if(contact.length !=10){
+			$("#contact1span").text("only 10digits").show();
+			check=0;	
+		} 
 		var pass=$("#password1").val();
 		if(pass == "")
 		{
@@ -84,13 +88,12 @@
 		}
 		if(check==1)
 		{ 
-			alert("Successfully register..!!");
 			//header("Location: welcome.php");
-            window.location.href='signupSave.php';
+            return true;
         }
         return false;
 	});
-});
+});  
 </script> 
 <style>
 .error
@@ -100,17 +103,17 @@
 </style>   
 		<form name="button" action="signupSave.php" method="POST">
           <label for="name"><b>Name</b></label>
-          <br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]"  ></br>
+          <br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]" value="dhara" ></br>
           <span class='error'></span>
 	      	<span id="namespan" class="error"></span>
 
           <label for="lastname"><b>Last Name</b></label>
-          <br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]" ></br>
+          <br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]" value="salot" ></br>
           <span class='error'></span>
 		      <span id="lnamespan" class="error"></span>
 
           <label for="email"><b>Email</b></label>
-          <br> <input id="email1" type="text" placeholder="Enter Email" name="Users[email]" ></br>
+          <br> <input id="email1" type="text" placeholder="Enter Email" name="Users[email]" value="abc@gmail.com"></br>
           <span class='error'></span>
 	      	<span id="emailspan" class="error"></span>
 
@@ -120,7 +123,7 @@
 	      	<span id="addr1span" class="error"></span>
 
           <label for="contact"><b>Contact No</b></label>
-          <br><input id="contact1" type="text" placeholder="Enter Phone Number" name="UserDetail[contact]" value="1234567890"></br>
+          <br><input id="contact1" type="text" placeholder="Enter Phone Number" name="UserDetail[contact]" value="1234567890" ></br>
           <span class='error'></span>
 		      <span id="contact1span" class="error"></span>
 
