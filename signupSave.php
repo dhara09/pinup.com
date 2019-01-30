@@ -1,21 +1,23 @@
 <?php
-require_once("connection.php");
+$name=$_POST['Users']['name'];
+$lname=$_POST['Users']['lastname'];
+$email=$_POST['Users']['email'];
+$address=$_POST['UserDetail']['address'];
+$contact=$_POST['UserDetail']['contact'];
+$pass=$_POST['Users']['password'];
+$cpass=$_POST['Users']['confirmpass']; 
+$errmsg='';
+$check=0;
 if(isset($_POST['submit']) )
 {
-    $name=$_POST['Users']['name'];
-    $lname=$_POST['Users']['lastname'];
-    $email=$_POST['Users']['email'];
-    $address=$_POST['UserDetail']['address'];
-    $contact=$_POST['UserDetail']['contact'];
-    $pass=$_POST['Users']['password'];
-    $cpass=$_POST['Users']['confirmpass']; 
- 
+  
     if(empty($name))
     {   
 		$errmsg .="Please fill the Name <br>";
         $check=1;
-    }  
-     if(!preg_match("/^[a-zA-Z ]*$/",$name)) 
+    } 
+
+    else if(!preg_match("/^[a-zA-Z ]*$/",$name)) 
     {
         $errmsg .=" Use only Alphabets for name <br>";
         $check=1;
@@ -25,6 +27,7 @@ if(isset($_POST['submit']) )
        $errmsg .="Enter valid Name <br>";
        $check=1;
     }
+
     if(empty($lname))
     {
         $errmsg .="Please fill Your Last Name <br>";
@@ -40,6 +43,7 @@ if(isset($_POST['submit']) )
         $errmsg .="Enter valid LastName <br>";
         $check=1;
     }
+
     if(empty($email))   
     {
         $errmsg .="Please fill your Email Address<br>";
@@ -94,19 +98,14 @@ if(isset($_POST['submit']) )
 	
 	if($pass !== $cpass){
 		$errmsg .="passwords dnt match";
-		$check=1;
-	}
-    if($check==0)
-    {
-        $errmsg .= "Form Successfully Logged In";
-        
-	}
-    header("Location:http://local.pinup.com/signup.php?error=$errmsg");
+        $check=1;
+    }
+    return false;
 }
-?>
-<?php
+header("Location:http://local.pinup.com/signup.php?error=$errmsg");
 
-/* $sql = "INSERT INTO User (name,lastname,email,password,confirmpass)
+require_once("connection.php");
+ $sql = "INSERT INTO User (name,lastname,email,password,confirmpass)
 VALUES (' ".$_POST['Users']['name']." ',' ".$_POST['Users']['lastname']." ',' ".$_POST['Users']['email']." ',' ".$_POST['Users']['password']." ',' ".$_POST['Users']['confirmpass']."')";
 if(!mysqli_query($con,$sql))
 {
@@ -115,49 +114,77 @@ if(!mysqli_query($con,$sql))
 else
 {
     echo ("<br> Record added successfully !!!!!</br>");
-    header("Location: welcome.php");
-}  */
+    //header("Location: welcome.php");
+}  
+
+
+
  /*------------------------------------------------------------------------------ */
-  /*  function sqlInsert($table, $cols, $values)
-    {
-        echo $insertquery = "INSERT INTO " . $table . " (" . $cols . ") VALUES (" . $values . ")";
-        $insertresult = mysqli_query($con, $insertquery) or die(mysqli_error($con));
-        return $insertresult;
-    }
-    $values = array(
-        '$name'=> $name,
-        '$lastname'=> $lastname,
-    );
-    $query1=sqlInsert('Users',$_POST['Users']);  */
+  /* $name=$_POST['Users']['name'];
+  echo $name;
+  $lastname=$_POST['Users']['lastname'];
+  $email=$_POST['Users']['email']; */
 
-/* =--------------------------------------------------------------------------------- */
-   $form_data=array(
-        '$name' => $_POST['Users']['name'],
-        '$lastname' => $_POST['Users']['lastname'],
-        '$email' => $_POST['Users']['email'],
-        '$password' => $_POST['Users']['password'],
-        '$cpass' => $_POST['Users']['confirmpass'],
+  /* $pass=$_POST['Users']['password'];
+  $enpass=md5($pass);
+  $cpass= $_POST['Users']['confirmpass'];
+  $conpass=md5($cpass);
+    
+    $form_data=array(
+        'name'=> $name,
+        'lastname' => $lastname,
+        'email' => $email,
+        'password' => $enpass,
+        'confirmpass' => $conpass
     );
-
-    function dbRowInsert($table_name, $form_data)
+    /* echo "<pre>";
+    print_r($_POST);
+    echo "</pre>";
+    exit; */
+    /* function dbRowInsert($table_name, $form_data)
     {
         $fields = array_keys($form_data);
-        echo $sql = "INSERT INTO ".$table_name."(".implode('`,`', $fields).")
-                VALUES('".implode("','", $form_data)."')";
+
+        //echo "<pre>";print_r($fields);echo "</pre>";
+
+        echo  $sql = "INSERT INTO ".$table_name." (`".implode('`,`', $fields)."`)
+        VALUES('".implode("','", $form_data)."')";
+
+        echo "<pre>"; print_r($form_data);echo "</pre>";
+
         return mysqli_query($sql);
     }
-        $query=dbRowInsert('Users',$_POST['Users']);
+    $query= dbRowInsert('User',$form_data);
+    if(!mysqli_query($con,$query))
+    {    
+        die("<br> Error: Record not inserted ".mysqli_error());
+    }
+    else
+    {
+        echo "<br> Record added successfully !!!!!</br>";
+        header("Location:welcome.php");
+    }  
+    mysqli_close($con);  
+ */
+ 
+/* ---------------------------------------------------------------------------------------------- */
+/* Function insertRow($table,$data)
+{   
+    
+    $fields = array_keys($data); 
+    echo "<pre>"; print_r($_POST); echo "</pre>"; exit;
 
-        if(!mysqli_query($con,$query))
-        {    
-            die("<br> Error: Record not inserted ".mysqli_error());
-        }
-        else
-        {
-            echo "<br> Record added successfully !!!!!</br>";
-            //header("Location:welcome.php");
-        }  
-        mysqli_close($con);  
+    $sql = "INSERT INTO ".$table." (`".implode('`,`', $fields)."`) VALUES ('".implode("','", $data)."')";
+    return mysqli_query($sql);
+} 
+$res=$array_combine($fields,$data);
+$data =array(
+    'name' => $name,
+    'lname' =>$lname,
+);
+$query = insertRow('student',$_POST['student']); 
+mysqli_close($con);
+ */
     /* --------------------------------------------------------------------------------------- */
       /* function Insertdata($table,$field_values,$data_values)
       {   
@@ -169,24 +196,4 @@ else
       }
         $query = Insertdata('User',$_POST['Users']); */
 /* ---------------------------------------------------------------------------------------------------- */
-          
-         /* $name=$_POST['Users']['name'];
-          $lname=$_POST['Users']['lastname'];
-          $email=$_POST['Users']['email'];
-          $pass=$_POST['Users']['password'];
-          echo $query = "INSERT INTO User (name,lastname,email,password,) 
-                    VALUES (' ".$name." ',' ".$lname." ',' ".$email." ',' ".$pass."')";
-                    
-           $results = mysqli_query($dbname, $query);
-           if(!mysqli_query($con,$sql))
-           {    
-             die("<br> Error: Record not inserted ".mysqli_error());
-            }
-            else
-            {
-                echo "<br> Record added successfully !!!!!</br>";
-                header("Location:welcome.php");
-            }  
-  	   */
-
 ?>
