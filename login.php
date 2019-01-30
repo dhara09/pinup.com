@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
  <script type="text/javascript"></script> 
-  <script>
+ <script>
       $(document).ready(function(){
         $(document).keypress(function(e) {
             $('span').hide();
@@ -30,7 +30,7 @@
             }
 			if(check==1)
 			{ 
-                window.location.href='loginCheck.php';
+             return true;
             }
             return false;
 	    });
@@ -43,13 +43,14 @@
  </style>
     <form name="button" action="loginCheck.php" method="POST">
         <label for="name"><b>Username</b></label>
-        <br><input id ="name1" type="text" placeholder="Enter Username" name="Users[name] 
-        value="<?php echo isset($_POST['Users']['name']) ? $_POST['Users']['name'] : ''; ?>"></br>
+        <br><input id ="name1" type="text" placeholder="Enter Username" name="Users[name]" 
+        value="<?php echo isset($_GET['user']) ? $_GET['user'] : ''; ?>"></br>
         <span class='error'></span>
-	    <span id="namespan" class="error"></span>
+        <span id="namespan" class="error"></span>
 
         <label for="password"><b>Password</b></label>
-        <br><input id ="pass1" type="password" placeholder="Enter password" name="Users[password]"></br>
+        <br><input id ="pass1" type="password" placeholder="Enter password" name="Users[password]"
+        value="<?php echo isset($_POST['Users']['password']) ? $_POST['Users']['password'] : ''; ?>"></br>
         <span class='error'></span>
         <span id="passpan" class="error"></span>
 
@@ -58,5 +59,6 @@
     </form>
     <?php
      if(isset($_GET['error']))echo $_GET['error'];
+     if(isset($_GET['user']))echo $_GET['user'];
      //if($errmsg!= "")echo $errmsg;  
      ?> 
