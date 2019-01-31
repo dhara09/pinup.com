@@ -7,50 +7,61 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
- <script type="text/javascript"></script> 
- <script>
-      $(document).ready(function(){
-        $(document).keypress(function(e) {
+  <script type="text/javascript"></script> 
+  <!--  <script>
+       $(document).ready(function(){
+        $(document).keypress(function(e) 
+        {
             $('span').hide();
-        });
+        }); 
+ 
+         /* $(document).ready(function(){
+            $("input, textarea").focus(function(){
+                $(this).next("span").empty();
+            });  */
 	   $("#button").click(function()
        {
-            var names=$("#name1").val();
-			var check=1;
-            if(names=="")
+            var emails=$("#email1").val();
+			var check=0;
+            if(emails=="")
             {
-				$("#namespan").text("Please fill this field").show();
-				check=0;
+				$("#emailspan").text("Please fill this field").show();
+				check=1;
 			}
+            else if(!emails.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
+		    {
+                $("#emailspan").text("Enter valid email address ").show();
+                check=1;
+		    }
+
             var pass=$("#pass1").val();
             if(pass == "")
             {
                 $("#passpan").text("Please fill this field").show();
-                check=0;
+                check=1;
             }
-			if(check==1)
-			{ 
-             return true;
+			if(check==0){ 
+               return true;
             }
-            return false;
+             else{
+                 return false;}
 	    });
-    });
-
- </script>  
+    }); 
+ </script>  -->
  <style> 
   .error{
    color:red;}  
  </style>
-    <form name="button" action="loginCheck.php" method="POST">
-        <label for="name"><b>Username</b></label>
-        <br><input id ="name1" type="text" placeholder="Enter Username" name="Users[name]" 
-        value="<?php echo isset($_GET['user']) ? $_GET['user'] : ''; ?>"></br>
+    <form id ="form" name="button" action="loginCheck.php" method="POST">
+        <label for="email"><b>Email</b></label>
+        <br><input id ="email1" type="text" placeholder="Enter email" name="Users[email]" 
+        value="<?php echo isset($_GET['query']) ? $_GET['query'] : ''; ?>"></br>
         <span class='error'></span>
-        <span id="namespan" class="error"></span>
+        <span id="emailspan" class="error"></span>
 
         <label for="password"><b>Password</b></label>
         <br><input id ="pass1" type="password" placeholder="Enter password" name="Users[password]"
-        value="<?php echo isset($_POST['Users']['password']) ? $_POST['Users']['password'] : ''; ?>"></br>
+        value="<?php echo isset($_GET['query']) ? $_GET['query'] : ''; ?>"></br>
         <span class='error'></span>
         <span id="passpan" class="error"></span>
 
@@ -59,6 +70,5 @@
     </form>
     <?php
      if(isset($_GET['error']))echo $_GET['error'];
-     if(isset($_GET['user']))echo $_GET['user'];
      //if($errmsg!= "")echo $errmsg;  
      ?> 
