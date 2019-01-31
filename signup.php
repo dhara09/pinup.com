@@ -2,8 +2,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript"></script> 
-<script>
-   $(document).ready(function(){
+<!-- <script>
+    $(document).ready(function(){
     $(document).keypress(function(e) {
         $('span').hide();
     });
@@ -88,13 +88,12 @@
 		}
 		if(check==1)
 		{ 
-			//header("Location: welcome.php");
-            return true;
+			alert("success"); 
         }
-        return false;
+      return false;
 	});
-});  
-</script> 
+});   
+</script> -->
 <style>
 .error
 {
@@ -103,12 +102,12 @@
 </style>   
 		<form name="button" action="signupSave.php" method="POST">
           <label for="name"><b>Name</b></label>
-          <br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]" value="dhara" ></br>
+          <br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]"  ></br>
           <span class='error'></span>
 	      	<span id="namespan" class="error"></span>
 
           <label for="lastname"><b>Last Name</b></label>
-          <br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]" value="salot" ></br>
+          <br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]"  ></br>
           <span class='error'></span>
 		      <span id="lnamespan" class="error"></span>
 
