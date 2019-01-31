@@ -8,7 +8,7 @@ $pass=$_POST['Users']['password'];
 $cpass=$_POST['Users']['confirmpass']; 
 $errmsg='';
 $check=0;
-if(isset($_POST['submit']) )
+if(isset($_POST['Users']['name']) )
 {
   
     if(empty($name))
@@ -100,12 +100,13 @@ if(isset($_POST['submit']) )
 		$errmsg .="passwords dnt match";
         $check=1;
     }
-    return false;
+    if($check == 1){
+        header("Location:http://local.pinup.com/signup.php?error=$errmsg");
+    }
 }
-header("Location:http://local.pinup.com/signup.php?error=$errmsg");
+include("connection.php");
 
-require_once("connection.php");
- $sql = "INSERT INTO User (name,lastname,email,password,confirmpass)
+$sql = "INSERT INTO User (name,lastname,email,password,confirmpass)
 VALUES (' ".$_POST['Users']['name']." ',' ".$_POST['Users']['lastname']." ',' ".$_POST['Users']['email']." ',' ".$_POST['Users']['password']." ',' ".$_POST['Users']['confirmpass']."')";
 if(!mysqli_query($con,$sql))
 {
@@ -115,7 +116,7 @@ else
 {
     echo ("<br> Record added successfully !!!!!</br>");
     //header("Location: welcome.php");
-}  
+}   
 
 
 
