@@ -1,6 +1,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script type="text/javascript"></script> 
 <!-- <script>
     $(document).ready(function(){
@@ -94,26 +95,44 @@
 	});
 });   
 </script> -->
-<style>
-.error
-{
-  color:red;
+<script>
+function checkAvailability() {
+$("#loaderIcon").show();
+jQuery.ajax({
+url: "ajax.php",
+data:'email='+$("#email1").val(),
+type: "POST",
+success:function(data){
+$("#user-availability-status").html(data);
+$("#loaderIcon").hide();
+},
+error:function (){}
+});
 }
+</script>
+<style>
+.status-available{color:#2FC332;}
+.status-not-available{color:#D60202;}
+.error{color:red;}
 </style>   
 		<form name="button" action="signupSave.php" method="POST">
           <label for="name"><b>Name</b></label>
-          <br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]"  ></br>
+          <br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]" 
+		  value="<?php echo isset($_GET['que']) ? $_GET['que'] : ''; 
+		  $_SESSION['name']?>"></br>
           <span class='error'></span>
 	      	<span id="namespan" class="error"></span>
 
           <label for="lastname"><b>Last Name</b></label>
-          <br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]"  ></br>
+          <br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]" 
+		  value="<?php echo isset($_GET['que']) ? $_GET['que'] : ''; ?>"></br>
           <span class='error'></span>
 		      <span id="lnamespan" class="error"></span>
 
           <label for="email"><b>Email</b></label>
-          <br> <input id="email1" type="text" placeholder="Enter Email" name="Users[email]" value="abc@gmail.com"></br>
-          <span class='error'></span>
+          <br> <input id="email1" type="text" onBlur="checkAvailability()" name="Users[email]" placeholder="enter email"
+		  value="<?php echo isset($_GET['query']) ? $_GET['query'] : ''; ?> "></br>
+          <span class='error'></span><span id="user-availability-status"></span>
 	      	<span id="emailspan" class="error"></span>
 
           <label for="address"><b>Address</b></label>
@@ -137,9 +156,12 @@
 		  <span id="cpaspan" class="error"></span>
 
           <button type="submit" value="submit" id="submit" name="submit" class="signupbtn" style="align:justify">Register</button>
-        </form> 
+		  <p><img src="LoaderIcon.gif" id="loaderIcon" style="display:none" /></p>
+		</form> 
 		<?php 
 		if(isset($_GET['error']))echo $_GET['error'];
-		  //if($errmsg!= "")echo $errmsg;  
+		  //if($errmsg!= "")echo $errmsg;
+		  echo utf8_decode(urldecode("$encode"));
+		//  $decode= rawurldecode($encode);
 		  ?> 
          
