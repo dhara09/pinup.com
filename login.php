@@ -50,22 +50,20 @@
     </style>
     <form id ="form" name="button" action="loginCheck.php" method="POST">
             <label for="email"><b>Email</b></label>
-            <br><input id ="email1" type="text" placeholder="Enter email" name="Users[email]" 
-            value="<?php echo isset($_SESSION['query']) ? $_SESSION['query'] : ''; ?>"></br>
-            <span class='error'></span>
-            <span id="emailspan" class="error"></span>
+            <br><input id ="email1" type="text" placeholder="Enter email" name="Users[email]"
+            value="<?php   if(isset($_GET['em']))echo $_GET['em'];?>"></br>
+            <span class='error'></span><span id="emailspan" class="error"></span>
 
             <label for="password"><b>Password</b></label>
-            <br><input id ="pass1" type="password" placeholder="Enter password" name="Users[password]"
-            value="<?php echo isset($_GET['query']) ? $_GET['query'] : ''; ?>"></br>
-            <span class='error'></span>
-            <span id="passpan" class="error"></span>
+            <br><input id ="pass1" type="password" placeholder="Enter password" name="Users[password]" 
+            value="<?php echo isset($_POST['pass'])? $_POST['pass'] : '';?>"></br>
+            <span class='error'></span><span id="passpan" class="error"></span>
 
             <button type="submit" value="submit" id="button" name="button">Login</button>
             <p>Not yet a member? <a href="signup.php">Sign up</a></p>
     </form>
     <?php
-        if(isset($_GET['error']))echo $_GET['error'];
+        if(isset($_GET['error']))echo $_GET['error'];     
         //var_dump($_SESSION['query']);
         //if($errmsg!= "")echo $errmsg;  
      ?> 
