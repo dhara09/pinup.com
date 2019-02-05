@@ -1,5 +1,4 @@
 <head>
-<?php session_start(); ?>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Login Page</title>
@@ -42,10 +41,9 @@
                 else{
                     return false;}
 	    });
-       }); 
-    </script> 
-    <style> 
-    .error{color:red;}  
+        }); 
+    </script>  
+    <style>.error{color:red;}  
     </style>
 
     <form id ="form" name="button" action="loginCheck.php" method="POST">
@@ -61,8 +59,7 @@
             <span class='error'></span><span id="passpan" class="error"></span>
 
             <button type="submit" value="submit" id="button" name="button">Login</button>
-            <p>Not yet a member? <a href="signup.php">Sign up</a></p>
-           
+            <p>Not yet a member? <a href="signup.php">Sign up</a></p>   
     </form>
     <?php
         if(isset($_GET['error']))echo $_GET['error'];     
