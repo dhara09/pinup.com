@@ -2,12 +2,10 @@
 if(!isset($_SESSION)){ 
     session_start();
 }
-
 $data=array(
     $email=$_POST['Users']['email'],
     $password=$_POST['Users']['password'],
 );   
-//$query= http_build_query(array('em' => $data));
 $query=http_build_query($data);
 $errmsg='';
 $check=0;
@@ -28,7 +26,7 @@ if(isset($_POST['Users']['email']))
             $errmsg .= "Fill password" ;
             $check=1;
         }
-        if($check == 1)
+        if($check == 0)
         {   
             $url="http://local.pinup.com/login.php?que=$query";
             $encode=rawurlencode($url);
@@ -38,13 +36,15 @@ if(isset($_POST['Users']['email']))
         }
 }
 require_once("connection.php");
-echo " <br> Checking For existing users from db is in process....";
-$query="SELECT * FROM User WHERE email='$email' and password='".MD5($password)."'";
+$email1=$_POST['Users']['email'];
+$password=$_POST['Users']['password'];
+$pass=MD5($password);
+echo $query="SELECT * FROM User WHERE email='$email' and password='$pass'";
 $result=mysqli_query($con,$query) or die(mysqli_error());
 $rows=mysqli_num_rows($result);
-if($rows == 1){
-    header("Location: welcome.php");
+if(!$rows == 1){
+    echo "combination of name & pass dont match.<p>Click here to <a href='login.php'>Login</a></div></p>";
 }
 else{
-   echo "combination of name & pass dont match.<p>Click here to <a href='login.php'>Login</a></div></p>";
+    header("Location: welcome.php");
 }  
