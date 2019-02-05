@@ -3,98 +3,99 @@
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script type="text/javascript"></script> 
-<!-- <script>
+ <script>
     $(document).ready(function(){
     $(document).keypress(function(e) {
         $('span').hide();
     });
 	$("#submit").click(function()
     {
-		var check=1;
+		var check=0;
 		var names=$("#name1").val();
         if(names =="")
         {
 			$("#namespan").text("Please fill this field").show();
-			check=0;
+			check=1;
 		}
 		
 		else if(!names.match('\^[a-zA-Z]*$'))
 		{
 			$("#namespan").text("Use only alphabets").show();
-			check=0;
+			check=1;
 		}
 
 		var lnames=$("#lname1").val();
 		if(lnames == "")
 		{
 			$("#lnamespan").text("please fill this field").show();
-			check=0;
+			check=1;
 		}
 
 		else if(!lnames.match('\^[a-zA-Z]*$'))
 		{
 			$("#lnamespan").text("Use only alphabets").show();
-			check=0;
+			check=1;
 		}
 
-		var email=$("#email1").val();
-		if(email == "")
+		var emails=$("#email1").val();
+		if(emails == "")
 		{
 			$("#emailspan").text("please fill this field").show();
-			check=0;
+			check=1;
 		}
-		else if(!email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
-		{
-			$("#emailspan").text("Enter valid email address ").show();
-			check=0;
-		}
+		else if(!emails.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
+        {
+            $("#emailspan").text("Enter valid email address ").show();
+            check=1;
+        }
+
 		var address=$("#address1").val();
 		if(address == "")
 		{
 			$("#addr1span").text("please fill this field").show();
-			check=0;
+			check=1;
 		}
 		
 		var contact=$("#contact1").val();
 		if(contact == "")
 		{
 			$("#contact1span").text("please fill this field").show();
-			check=0;
+			check=1;
 		}
 		else if(!contact.match('^[0-9]*$'))
 		{
 			$("#contact1span").text("Use only numbers").show();
-			check=0;	
+			check=1;	
 		}
 		else if(contact.length !=10){
 			$("#contact1span").text("only 10digits").show();
-			check=0;	
+			check=1;	
 		} 
 		var pass=$("#password1").val();
 		if(pass == "")
 		{
 			$("#passspan").text("please fill this field").show();
-			check=0;
+			check=1;
 		}
 		var cpass=$("#confrmpass1").val();
 		if(cpass== "")
 		{
 			$("#cpaspan").text("please fill this field").show();
-			check=0;
+			check=1;
 		}
 		if(pass!=cpass)
 		{
 			$("#cpaspan").text("pass dnt match").show();
-			check=0;
+			check=1;
 		}
-		if(check==1)
+		if(check==0)
 		{ 
-			alert("success"); 
+			return true;
         }
       return false;
 	});
 });   
-</script> -->
+</script> 
 <script>
 function checkAvailability() {
 $("#loaderIcon").show();
@@ -118,16 +119,13 @@ error:function (){}
 		<form name="button" action="signupSave.php" method="POST">
           <label for="name"><b>Name</b></label>
           <br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]" 
-		  value="<?php echo isset($_GET['que']) ? $_GET['que'] : ''; 
-		  $_SESSION['name']?>"></br>
-          <span class='error'></span>
-	      	<span id="namespan" class="error"></span>
+		  value="<?php if (isset($_POST['name'])) { echo $_POST['name']; }  ?>"></br>
+          <span class='error'></span><span id="namespan" class="error"></span>
 
           <label for="lastname"><b>Last Name</b></label>
           <br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]" 
 		  value="<?php echo isset($_GET['que']) ? $_GET['que'] : ''; ?>"></br>
-          <span class='error'></span>
-		      <span id="lnamespan" class="error"></span>
+          <span class='error'></span><span id="lnamespan" class="error"></span>
 
           <label for="email"><b>Email</b></label>
           <br> <input id="email1" type="text" onBlur="checkAvailability()" name="Users[email]" placeholder="enter email"
@@ -161,7 +159,7 @@ error:function (){}
 		<?php 
 		if(isset($_GET['error']))echo $_GET['error'];
 		  //if($errmsg!= "")echo $errmsg;
-		  echo utf8_decode(urldecode("$encode"));
+		  //echo utf8_decode(urldecode("$encode"));
 		//  $decode= rawurldecode($encode);
 		  ?> 
          
