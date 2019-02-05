@@ -1,6 +1,6 @@
 <?php
-require_once('signupSave.php');
-class DBController {
+class DBController 
+{
     private $host = "localhost";
     private $user = "root";
     private $password = "123456";
