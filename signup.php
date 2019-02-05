@@ -3,7 +3,7 @@
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script type="text/javascript"></script> 
- <script>
+<script>
     $(document).ready(function(){
     $(document).keypress(function(e) {
         $('span').hide();
@@ -95,21 +95,22 @@
       return false;
 	});
 });   
-</script> 
+</script>  
 <script>
-function checkAvailability() {
-$("#loaderIcon").show();
-jQuery.ajax({
-url: "ajax.php",
-data:'email='+$("#email1").val(),
-type: "POST",
-success:function(data){
-$("#user-availability-status").html(data);
-$("#loaderIcon").hide();
-},
-error:function (){}
-});
-}
+	function checkAvailability() 
+	{
+		$("#loaderIcon").show();
+		jQuery.ajax({
+		url: "ajax.php",
+		data:'email='+$("#email1").val(),
+		type: "POST",
+		success:function(data){
+		$("#user-availability-status").html(data);
+		$("#loaderIcon").hide();
+		},
+		error:function (){}
+		});
+	}
 </script>
 <style>
 .status-available{color:#2FC332;}
@@ -119,38 +120,33 @@ error:function (){}
 		<form name="button" action="signupSave.php" method="POST">
           <label for="name"><b>Name</b></label>
           <br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]" 
-		  value="<?php if (isset($_POST['name'])) { echo $_POST['name']; }  ?>"></br>
-          <span class='error'></span><span id="namespan" class="error"></span>
+		  value="<?php if(isset($_GET['que']))echo $_GET['que'];?>"></br>
+          <span id="namespan" class="error"></span>
 
           <label for="lastname"><b>Last Name</b></label>
           <br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]" 
-		  value="<?php echo isset($_GET['que']) ? $_GET['que'] : ''; ?>"></br>
-          <span class='error'></span><span id="lnamespan" class="error"></span>
+		  value=""<?php if(isset($_GET['ln']))echo $_GET['ln'];?>"></br>
+          <span id="lnamespan" class="error"></span>
 
           <label for="email"><b>Email</b></label>
           <br> <input id="email1" type="text" onBlur="checkAvailability()" name="Users[email]" placeholder="enter email"
 		  value="<?php echo isset($_GET['query']) ? $_GET['query'] : ''; ?> "></br>
-          <span class='error'></span><span id="user-availability-status"></span>
-	      	<span id="emailspan" class="error"></span>
+          <span id="user-availability-status"></span><span id="emailspan" class="error"></span>
 
           <label for="address"><b>Address</b></label>
           <br><input id="address1" type="text" placeholder="Enter Address" name="UserDetail[address]" value="ijmima"></br>
-          <span class='error'></span>
-	      	<span id="addr1span" class="error"></span>
+	      <span id="addr1span" class="error"></span>
 
           <label for="contact"><b>Contact No</b></label>
           <br><input id="contact1" type="text" placeholder="Enter Phone Number" name="UserDetail[contact]" value="1234567890" ></br>
-          <span class='error'></span>
-		      <span id="contact1span" class="error"></span>
+		  <span id="contact1span" class="error"></span>
 
           <label for="psw"><b>Password</b></label>
           <br><input id="password1" type="password" placeholder="Enter Password" name="Users[password]"></br>
-           <span class='error'></span>
-		        <span id="passspan" class="error"></span>
+          <span id="passspan" class="error"></span>
 
           <label for="pswd"><b>Confirm password</b></label>
           <br><input id="confrmpass1" type="password" placeholder="confirm password" name="Users[confirmpass]"></br>
-          <span class='error'></span>
 		  <span id="cpaspan" class="error"></span>
 
           <button type="submit" value="submit" id="submit" name="submit" class="signupbtn" style="align:justify">Register</button>
