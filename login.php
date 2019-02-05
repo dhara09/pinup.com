@@ -9,7 +9,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script type="text/javascript"></script> 
- <!--  <script>
+    <script>
        $(document).ready(function(){
             $(document).keypress(function(e) 
             {
@@ -43,16 +43,17 @@
                     return false;}
 	    });
        }); 
-        </script>  -->
+    </script> 
     <style> 
-        .error{
-        color:red;}  
+    .error{color:red;}  
     </style>
+
     <form id ="form" name="button" action="loginCheck.php" method="POST">
             <label for="email"><b>Email</b></label>
             <br><input id ="email1" type="text" placeholder="Enter email" name="Users[email]"
             value="<?php   if(isset($_GET['em']))echo $_GET['em'];?>"></br>
-            <span class='error'></span><span id="emailspan" class="error"></span>
+            <span class='error' span id="emailspan"></span>
+            <span id="user-availability-status"></span>
 
             <label for="password"><b>Password</b></label>
             <br><input id ="pass1" type="password" placeholder="Enter password" name="Users[password]" 
@@ -61,6 +62,7 @@
 
             <button type="submit" value="submit" id="button" name="button">Login</button>
             <p>Not yet a member? <a href="signup.php">Sign up</a></p>
+           
     </form>
     <?php
         if(isset($_GET['error']))echo $_GET['error'];     
