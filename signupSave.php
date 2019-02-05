@@ -8,7 +8,6 @@ $data=array(
     $pass=$_POST['Users']['password'],
     $cpass=$_POST['Users']['confirmpass'],
 );
-//$query = http_build_query(array('em' => $data));
 $query=http_build_query($data);
 $errmsg='';
 $check=0;
@@ -110,7 +109,7 @@ if(isset($_POST['Users']['name']) )
         $url="http://local.pinup.com/signup.php?que=$query";
         $encode=rawurlencode($url);
         header("Location:http://local.pinup.com/signup.php?error=$errmsg&val=.http_build_query($query)");
-        exit;
+        //exit;
         //header("Location:http://local.pinup.com/signup.php?.$encode");
        // $decode= rawurldecode($encode);
         //header("Location:http://local.pinup.com/signup.php?.$decode");
@@ -119,14 +118,12 @@ if(isset($_POST['Users']['name']) )
 }
 require_once("connection.php");
 $sql = "INSERT INTO User (name,lastname,email,password,confirmpass)
-VALUES (' ".$_POST['Users']['name']." ',' ".$_POST['Users']['lastname']." ',' ".$_POST['Users']['email']." ',' ".$_POST['Users']['password']." ',' ".$_POST['Users']['confirmpass']."')";
-if(!mysqli_query($con,$sql))
-{
+VALUES (' ".$_POST['Users']['name']." ',' ".$_POST['Users']['lastname']." ',' ".$_POST['Users']['email']." ',' ".md5($_POST['Users']['password'])." ',' ".md5($_POST['Users']['confirmpass'])."')";
+if(!mysqli_query($con,$sql)){
     die("<br> Error: Record not inserted ".mysqli_error());
 }
-else
-{
-    //echo ("<br> Record added successfully !!!!!</br>");
-   // header("Location: welcome.php");
+else{
+    echo("<br> Record added successfully !!!!!</br>");
 }   
+echo "</h1>To continue</h1><h3> Login in <a href='login.php'>Login</a></h3>";
 ?>
