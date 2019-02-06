@@ -7,7 +7,7 @@ session_start();
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script type="text/javascript"></script> 
-<!--  <script>
+  <script>
     $(document).ready(function(){
     $(document).keypress(function(e) {
         $('span').hide();
@@ -99,7 +99,7 @@ session_start();
       return false;
 	});
 });   
-</script>    -->
+</script>  
 <script>
 	function checkAvailability() 
 	{
@@ -152,12 +152,12 @@ border: 1px solid;}
 		<form name="button" action="signupSave.php" method="POST" name="form1">
           <label for="name"><b>Name</b></label>
           <br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]" 
-		  value="<?php if(isset($_GET['0']))echo $_GET['0'];?>"></br>
+		  value="<?php if(isset($_GET['na']))echo $_GET['na'];?>"></br>
           <span id="namespan" class="error"></span>
 
           <label for="lastname"><b>Last Name</b></label>
           <br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]" 
-		  value="<?php if(isset($_GET['1']))echo $_GET['1'];?>"></br>
+		  value="<?php if(isset($_GET['ln']))echo $_GET['ln'];?>"></br>
           <span id="lnamespan" class="error"></span>
 
           <label for="email"><b>Email</b></label>
@@ -182,7 +182,7 @@ border: 1px solid;}
 		  <span id="cpaspan" class="error"></span>
 
 		  <label for="cap"><b>Enter Captcha</b></label>
-		  <br><input id="chk" type="text" name="chk"><span id="error" class="color"></span></br>
+		  <br><input id="chk" type="text" name="chk" placeholder="Enter the Text you see"><span id="error" class="color"></span></br>
 
 		  <input type="text" value="<?=$rand?>" id="ran" readonly="readonly" class="captcha">
 		  <input type="button" value="Refresh" onclick="captch()" /></td>
