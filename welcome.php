@@ -12,7 +12,7 @@ session_start();
     <script src="main.js"></script>
 </head>
 <body>
-    <h4> <center>Welcome</center> <?php echo $_SESSION['name'];?></h4>
+    <h4> <center>Welcome <?php echo $_SESSION['email'];?></center></h4>
    <a href="logout.php"> Logout</a>
 </body>
 </html>
