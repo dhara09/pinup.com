@@ -1,9 +1,13 @@
+<?php
+session_start(); 
+/* $rand=substr(rand(),0,4); */
+?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script type="text/javascript"></script> 
-<script>
+<!--  <script>
     $(document).ready(function(){
     $(document).keypress(function(e) {
         $('span').hide();
@@ -95,7 +99,7 @@
       return false;
 	});
 });   
-</script>  
+</script>    -->
 <script>
 	function checkAvailability() 
 	{
@@ -112,20 +116,48 @@
 		});
 	}
 </script>
-<style>
+<script type="text/javascript">
+function captch() {
+    var x = document.getElementById("ran")
+    x.value = Math.floor((Math.random() * 10000) + 1);
+}
+function validation()
+{
+	if(document.form1.chk.value=="")
+	{
+	document.getElementById("error").innerHTML="Enter Captcha!";
+	document.form1.chk.focus();
+	return false;
+	}
+	if(document.form1.ran.value!=document.form1.chk.value)
+	{
+	document.getElementById("error").innerHTML="Captcha Not Matched!";
+	document.form1.chk.focus();
+	return false;
+	}
+	return true;
+}
+</script>
+<style type="text/css">
+.captcha{
+width:60px; 
+background-image:url(cat.png); 
+font-size:20px; 
+border: 1px solid;}
+.color{color:#FF0000;}
 .status-available{color:#2FC332;}
 .status-not-available{color:#D60202;}
 .error{color:red;}
 </style>   
-		<form name="button" action="signupSave.php" method="POST">
+		<form name="button" action="signupSave.php" method="POST" name="form1">
           <label for="name"><b>Name</b></label>
           <br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]" 
-		  value="<?php if(isset($_GET['que']))echo $_GET['que'];?>"></br>
+		  value="<?php if(isset($_GET['0']))echo $_GET['0'];?>"></br>
           <span id="namespan" class="error"></span>
 
           <label for="lastname"><b>Last Name</b></label>
           <br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]" 
-		  value=""<?php if(isset($_GET['ln']))echo $_GET['ln'];?>"></br>
+		  value="<?php if(isset($_GET['1']))echo $_GET['1'];?>"></br>
           <span id="lnamespan" class="error"></span>
 
           <label for="email"><b>Email</b></label>
@@ -149,13 +181,16 @@
           <br><input id="confrmpass1" type="password" placeholder="confirm password" name="Users[confirmpass]"></br>
 		  <span id="cpaspan" class="error"></span>
 
-          <button type="submit" value="submit" id="submit" name="submit" class="signupbtn" style="align:justify">Register</button>
-		  <p><img src="LoaderIcon.gif" id="loaderIcon" style="display:none" /></p>
+		  <label for="cap"><b>Enter Captcha</b></label>
+		  <br><input id="chk" type="text" name="chk"><span id="error" class="color"></span></br>
+
+		  <input type="text" value="<?=$rand?>" id="ran" readonly="readonly" class="captcha">
+		  <input type="button" value="Refresh" onclick="captch()" /></td>
+
+          <br><button type="submit" value="submit" id="submit" name="submit" name="check" onclick="return validation();" class="signupbtn" style="align:justify">Register</button>
+		  </bt><p><img src="LoaderIcon.gif" id="loaderIcon" style="display:none" /></p>
 		</form> 
 		<?php 
 		if(isset($_GET['error']))echo $_GET['error'];
-		  //if($errmsg!= "")echo $errmsg;
-		  //echo utf8_decode(urldecode("$encode"));
-		//  $decode= rawurldecode($encode);
-		  ?> 
+		  //if($errmsg!= "")echo $errmsg; ?>
          
