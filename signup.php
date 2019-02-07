@@ -1,13 +1,20 @@
 <?php
+/* $a=10;
+$b=20;
+echo $a +=$a;
+// /echo $b$a;
+exit;
+ */
 session_start(); 
 /* $rand=substr(rand(),0,4); */
+//echo "base64_decode(json_encode('data')";
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script type="text/javascript"></script> 
-  <script>
+ <script>
     $(document).ready(function(){
     $(document).keypress(function(e) {
         $('span').hide();
@@ -16,80 +23,82 @@ session_start();
     {
 		var check=0;
 		var names=$("#name1").val();
-        if(names =="")
-        {
-			$("#namespan").text("Please fill this field").show();
+        if(names ==""){
+			$("#namespan").text("Please Fill Your Name").show();
 			check=1;
 		}
-		
-		else if(!names.match('\^[a-zA-Z]*$'))
-		{
-			$("#namespan").text("Use only alphabets").show();
+		if(!names.match('\^[a-zA-Z]*$')){
+			$("#namespan").text("Use Only Alphabets").show();
 			check=1;
 		}
-
 		var lnames=$("#lname1").val();
 		if(lnames == "")
 		{
-			$("#lnamespan").text("please fill this field").show();
+			$("#lnamespan").text("Please Fill Your LastName").show();
 			check=1;
 		}
-
-		else if(!lnames.match('\^[a-zA-Z]*$'))
+		if(!lnames.match('\^[a-zA-Z]*$'))
 		{
-			$("#lnamespan").text("Use only alphabets").show();
+			$("#lnamespan").text("Use Only Alphabets").show();
 			check=1;
 		}
-
 		var emails=$("#email1").val();
 		if(emails == "")
 		{
-			$("#emailspan").text("please fill this field").show();
+			$("#emailspan").text("Please Enter Your Email Address").show();
 			check=1;
 		}
 		else if(!emails.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
         {
-            $("#emailspan").text("Enter valid email address ").show();
+            $("#emailspan").text("Enter Valid Email Address ").show();
             check=1;
         }
 
 		var address=$("#address1").val();
 		if(address == "")
 		{
-			$("#addr1span").text("please fill this field").show();
+			$("#addr1span").text("Please Fill Your Address").show();
 			check=1;
 		}
 		
 		var contact=$("#contact1").val();
 		if(contact == "")
 		{
-			$("#contact1span").text("please fill this field").show();
+			$("#contact1span").text("Please Enter Your Contact Detail").show();
 			check=1;
 		}
 		else if(!contact.match('^[0-9]*$'))
 		{
-			$("#contact1span").text("Use only numbers").show();
+			$("#contact1span").text("Use Only Numbers").show();
 			check=1;	
 		}
 		else if(contact.length !=10){
-			$("#contact1span").text("only 10digits").show();
+			$("#contact1span").text("Enter 10 Digits Number").show();
 			check=1;	
 		} 
 		var pass=$("#password1").val();
 		if(pass == "")
 		{
-			$("#passspan").text("please fill this field").show();
+			$("#passspan").text("Please Enter Your Password").show();
+			check=1;
+		}
+		else if(pass.length < 4){
+			$("#passspan").text("Enter Minimum 5-8 Characters").show();
 			check=1;
 		}
 		var cpass=$("#confrmpass1").val();
 		if(cpass== "")
 		{
-			$("#cpaspan").text("please fill this field").show();
+			$("#cpaspan").text("Please Enter Your ConfirmPassword").show();
+			check=1;
+		}
+		else if(cpass.length < 4){
+			$("#cpaspan").text("Enter Minimum 5-8 Characters").show();
 			check=1;
 		}
 		if(pass!=cpass)
 		{
-			$("#cpaspan").text("pass dnt match").show();
+			$("#cpaspan").text("Combination Of Password Don't Match !").show();
 			check=1;
 		}
 		if(check==0)
@@ -99,7 +108,7 @@ session_start();
       return false;
 	});
 });   
-</script>  
+</script>    
 <script>
 	function checkAvailability() 
 	{
@@ -152,43 +161,44 @@ border: 1px solid;}
 		<form name="button" action="signupSave.php" method="POST" name="form1">
           <label for="name"><b>Name</b></label>
           <br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]" 
-		  value="<?php if(isset($_GET['na']))echo $_GET['na'];?>"></br>
-          <span id="namespan" class="error"></span>
+		  value="<?php if(isset($_GET['na']))echo $_GET['na'];?>">
+          <span id="namespan" class="error"></span></br>
 
           <label for="lastname"><b>Last Name</b></label>
           <br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]" 
-		  value="<?php if(isset($_GET['ln']))echo $_GET['ln'];?>"></br>
-          <span id="lnamespan" class="error"></span>
+		  value="<?php if(isset($_GET['ln']))echo $_GET['ln'];?>">
+          <span id="lnamespan" class="error"></span></br>
 
           <label for="email"><b>Email</b></label>
-          <br> <input id="email1" type="text" onBlur="checkAvailability()" name="Users[email]" placeholder="enter email"
-		  value="<?php echo isset($_GET['query']) ? $_GET['query'] : ''; ?> "></br>
-          <span id="user-availability-status"></span><span id="emailspan" class="error"></span>
+          <br> <input id="email1" type="text" onBlur="checkAvailability()" name="Users[email]" placeholder="Enter email"
+		  value="<?php echo isset($_GET['query']) ? $_GET['query']:'';?>">
+          <span id="user-availability-status"></span><span id="emailspan" class="error"></span></br>
 
           <label for="address"><b>Address</b></label>
-          <br><input id="address1" type="text" placeholder="Enter Address" name="UserDetail[address]" value="ijmima"></br>
-	      <span id="addr1span" class="error"></span>
+          <br><input id="address1" type="text" placeholder="Enter Address" name="UserDetail[address]" value="Ijmima,Malad">
+	      <span id="addr1span" class="error"></span></br>
 
           <label for="contact"><b>Contact No</b></label>
-          <br><input id="contact1" type="text" placeholder="Enter Phone Number" name="UserDetail[contact]" value="1234567890" ></br>
-		  <span id="contact1span" class="error"></span>
+          <br><input id="contact1" type="text" placeholder="Enter Phone Number" name="UserDetail[contact]" value="1234567890">
+		  <span id="contact1span" class="error"></span></br>
 
           <label for="psw"><b>Password</b></label>
-          <br><input id="password1" type="password" placeholder="Enter Password" name="Users[password]"></br>
-          <span id="passspan" class="error"></span>
+          <br><input id="password1" type="password" placeholder="Enter Password" name="Users[password]">
+          <span id="passspan" class="error"></span></br>
 
           <label for="pswd"><b>Confirm password</b></label>
-          <br><input id="confrmpass1" type="password" placeholder="confirm password" name="Users[confirmpass]"></br>
-		  <span id="cpaspan" class="error"></span>
+          <br><input id="confrmpass1" type="password" placeholder="Confirm Password" name="Users[confirmpass]">
+		  <span id="cpaspan" class="error"></span></br>
 
 		  <label for="cap"><b>Enter Captcha</b></label>
-		  <br><input id="chk" type="text" name="chk" placeholder="Enter the Text you see"><span id="error" class="color"></span></br>
+		  <br><input id="chk" type="text" name="chk" placeholder="Enter the Text you see">
+		  <span id="error" class="color"></span></br>
 
 		  <input type="text" value="<?=$rand?>" id="ran" readonly="readonly" class="captcha">
-		  <input type="button" value="Refresh" onclick="captch()" /></td>
+		  <input type="button" value="Refresh" onclick="captch()" />
 
           <br><button type="submit" value="submit" id="submit" name="submit" name="check" onclick="return validation();" class="signupbtn" style="align:justify">Register</button>
-		  </bt><p><img src="LoaderIcon.gif" id="loaderIcon" style="display:none" /></p>
+		  <p><img src="LoaderIcon.gif" id="loaderIcon" style="display:none" /></p>
 		</form> 
 		<?php 
 		if(isset($_GET['error']))echo $_GET['error'];
