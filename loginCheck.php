@@ -1,41 +1,40 @@
 <?php
 if(!isset($_SESSION)){ 
     session_start();}
-$errmsg='';
-$check=0;
-$email=$_POST['Users']['email'];
-$password=$_POST['Users']['password'];
 if(isset($_POST['Users']['email'])) 
 { 
+    $email=$_POST['Users']['email'];
+    $password=$_POST['Users']['password'];
+    $errmsg='';
+    $check=0;
         if(empty($email)){
-            $errmsg .= "Fill email </br>" ;
+            $errmsg .= "Please Fill Email Address </br>" ;
             $check=1;
         }
         else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-            $errmsg .= "Enter valid Email Address <br>" ;
+            $errmsg .= "Enter Valid Email Address <br>" ;
             $check=1;
         }
         if(empty($password)){
-            $errmsg .= "Fill password" ;
+            $errmsg .= "Please Fill Your Password" ;
             $check=1;
         }
-        if($check == 0){   
-            header("Location:http://local.pinup.com/login.php?error=$errmsg&em=$email&pass=$password");
+        if($check == 1){   
+            header("Location:http://local.pinup.com/login.php?error=$errmsg&email=$email");
+            exit;
         }   
     }
-    //exit;
 require_once("connection.php");
 $email=$_POST['Users']['email'];
 $password=$_POST['Users']['password'];
-//$pass=MD5($password);
-echo $query="SELECT * FROM User WHERE email='$email' and password='$password'";
+$userpass=md5($password);
+$query="SELECT * FROM User WHERE email='$email' and password='$userpass'";
 $result=mysqli_query($con,$query) or die(mysqli_error());
-echo $rows=mysqli_num_rows($result);
-if(!$rows = 1){
-    echo "combination of name & pass dont match.<p>Click here to <a href='login.php'>Login</a></div></p>";
+$rows=mysqli_num_rows($result);
+if($rows == 1){
+     session_start();
+	$_SESSION['email']=$email;
+	header("location: welcome.php");
 }
-else{
-    session_start();
-		$_SESSION['email']=$email;
-		header("location: welcome.php");
-}  
+else{  
+    header("location:login.php");}
