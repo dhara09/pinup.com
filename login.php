@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +9,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script type="text/javascript"></script> 
-    <script>
+ <script>
        $(document).ready(function(){
             $(document).keypress(function(e) 
             {
@@ -20,19 +21,19 @@
                 var check=0;
                 if(emails=="")
                 {
-                    $("#emailspan").text("Please fill this field").show();
+                    $("#emailspan").text("Please Fill Email Address").show();
                     check=1;
                 }
                 else if(!emails.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
                 {
-                    $("#emailspan").text("Enter valid email address ").show();
+                    $("#emailspan").text("Enter Valid Email Address").show();
                     check=1;
                 }
 
                 var pass=$("#pass1").val();
                 if(pass == "")
                 {
-                    $("#passpan").text("Please fill this field").show();
+                    $("#passpan").text("Please Fill Your Password").show();
                     check=1;
                 }
                 if(check==0){ 
@@ -42,27 +43,26 @@
                     return false;}
 	    });
         }); 
-    </script>  
+    </script> 
     <style>.error{color:red;}  
     </style>
 
     <form id ="form" name="button" action="loginCheck.php" method="POST">
-            <label for="email"><b>Email</b></label>
+           <center> <h2><b>Login Form</b></h2></center>
+            <label for="email"><b>Email :</b></label>
             <br><input id ="email1" type="text" placeholder="Enter email" name="Users[email]"
-            value="<?php   if(isset($_GET['em']))echo $_GET['em'];?>"></br>
+            value="<?php if(isset($_GET['email']))echo $_GET['email'];?>">
             <span class='error' span id="emailspan"></span>
-            <span id="user-availability-status"></span>
+            <span id="user-availability-status"></span></br>
 
-            <label for="password"><b>Password</b></label>
+            <label for="password"><b>Password :</b></label>
             <br><input id ="pass1" type="password" placeholder="Enter password" name="Users[password]" 
-            value="<?php echo isset($_POST['pass'])? $_POST['pass'] : '';?>"></br>
-            <span class='error'></span><span id="passpan" class="error"></span>
+            value="<?php echo isset($_GET['pass'])? $_GET['pass'] : '';?>">
+            <span class='error'></span><span id="passpan" class="error"></span></br>
 
             <button type="submit" value="submit" id="button" name="button">Login</button>
-            <p>Not yet a member? <a href="signup.php">Sign up</a></p>   
+            <p>Not yet a member? <a href="signup.php">Sign up</a></p>  
     </form>
     <?php
         if(isset($_GET['error']))echo $_GET['error'];     
-        //var_dump($_SESSION['query']);
-        //if($errmsg!= "")echo $errmsg;  
-     ?> 
+        //if($errmsg!= "")echo $errmsg;  ?> 
