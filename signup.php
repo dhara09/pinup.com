@@ -1,20 +1,15 @@
 <?php
-/* $a=10;
-$b=20;
-echo $a +=$a;
-// /echo $b$a;
-exit;
- */
 session_start(); 
-/* $rand=substr(rand(),0,4); */
+$rand=substr(rand(),0,4); 
 //echo "base64_decode(json_encode('data')";
+//echo "$userArr";
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script type="text/javascript"></script> 
- <script>
+<script>
     $(document).ready(function(){
     $(document).keypress(function(e) {
         $('span').hide();
@@ -108,7 +103,7 @@ session_start();
       return false;
 	});
 });   
-</script>    
+</script>   
 <script>
 	function checkAvailability() 
 	{
@@ -146,6 +141,10 @@ function validation()
 	}
 	return true;
 }
+function captch() {
+    var x = document.getElementById("ran")
+    x.value = Math.floor((Math.random() * 10000) + 1);
+}
 </script>
 <style type="text/css">
 .captcha{
@@ -157,6 +156,7 @@ border: 1px solid;}
 .status-available{color:#2FC332;}
 .status-not-available{color:#D60202;}
 .error{color:red;}
+
 </style>   
 		<form name="button" action="signupSave.php" method="POST" name="form1">
           <label for="name"><b>Name</b></label>
@@ -170,8 +170,7 @@ border: 1px solid;}
           <span id="lnamespan" class="error"></span></br>
 
           <label for="email"><b>Email</b></label>
-          <br> <input id="email1" type="text" onBlur="checkAvailability()" name="Users[email]" placeholder="Enter email"
-		  value="<?php echo isset($_GET['query']) ? $_GET['query']:'';?>">
+          <br> <input id="email1" type="text" onBlur="checkAvailability()" name="Users[email]" placeholder="Enter email">
           <span id="user-availability-status"></span><span id="emailspan" class="error"></span></br>
 
           <label for="address"><b>Address</b></label>
@@ -191,11 +190,13 @@ border: 1px solid;}
 		  <span id="cpaspan" class="error"></span></br>
 
 		  <label for="cap"><b>Enter Captcha</b></label>
-		  <br><input id="chk" type="text" name="chk" placeholder="Enter the Text you see">
+		  <br><input id="chk" type="text" name="code" name="chk" placeholder="Enter the Text you see">
 		  <span id="error" class="color"></span></br>
 
 		  <input type="text" value="<?=$rand?>" id="ran" readonly="readonly" class="captcha">
 		  <input type="button" value="Refresh" onclick="captch()" />
+		
+		  <input type="hidden" name="chk" value="<?=$rand?>">
 
           <br><button type="submit" value="submit" id="submit" name="submit" name="check" onclick="return validation();" class="signupbtn" style="align:justify">Register</button>
 		  <p><img src="LoaderIcon.gif" id="loaderIcon" style="display:none" /></p>
@@ -203,4 +204,3 @@ border: 1px solid;}
 		<?php 
 		if(isset($_GET['error']))echo $_GET['error'];
 		  //if($errmsg!= "")echo $errmsg; ?>
-         
