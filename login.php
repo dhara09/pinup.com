@@ -72,6 +72,7 @@
 
             <button type="submit" value="submit" id="button" name="button">Login</button>
             <p>Not yet a member? <a href="signup.php">Sign up</a></p>  
+            <p><a href="forgotpassw.php">Forgot Password?</a></p> 
     </form>
     <?php
         if(isset($_GET['error']))echo $_GET['error'];
