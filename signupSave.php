@@ -1,8 +1,15 @@
 <?php
 session_start();
-//echo "<pre>"; print_r($_REQUEST);//exit;
+/* echo "<pre>"; print_r($_REQUEST);
+$userArr=print_r($_REQUEST);
+echo $userArr;
+exit *///;
+
+//header("Location: signup.php?data=base64_jsonencode($userArr)");
+//exit;
 /* $userArr=$_REQUEST[''];
 $userDetArr=$_REQUEST['']; */
+//$_REQUEST['userArr'];
 $data=array(
     $name =  $_POST['Users']['name'],
     $lname = $_POST['Users']['lastname'],
@@ -12,6 +19,10 @@ $data=array(
     $pass = $_POST['Users']['password'],
     $cpass = $_POST['Users']['confirmpass'],
 );
+$query = http_build_query(array('login' => $data));
+$query1=base64_encode(json_encode(http_build_query(array('login' => $data))));
+//echo $query1;
+//exit;
 //echo $query=http_build_query($data);
 //$encode=rawurlencode($query);
 //header("location:signup.php?data=".base64_encode(json_encode('$_REQUEST')));
@@ -102,10 +113,11 @@ if(isset($_POST['Users']['name']) )
     }
 }
 require_once("connection.php");
-$query="INSERT INTO User(name,lastname,email,password) VALUES ('".$_POST['Users']['name']."','".$_POST['Users']['lastname']."','".$_POST['Users']['email']."','".md5($_POST['Users']['password'])."');";
-$query .="INSERT INTO userDetail(address,contact) VALUES('".$_POST['UserDetail']['address']."','".$_POST['UserDetail']['contact']."');";
+$date = date('Y-m-d');
+$query="INSERT INTO User(name,lastname,email,password,createdDate,createdTime) VALUES ('".$_POST['Users']['name']."','".$_POST['Users']['lastname']."','".$_POST['Users']['email']."','".md5($_POST['Users']['password'])."','".$date."','".time('H:M:S')."');";
+$query .="INSERT INTO userDetail(address,contact,createdDate,createdTime) VALUES('".$_POST['UserDetail']['address']."','".$_POST['UserDetail']['contact']."','".$date."','".time('h:m:s')."');";
 if (!mysqli_multi_query($con,$query)){
     die("<br> Error: Record not inserted ".mysqli_error());
 }
-else{  header("Location:login.php"); }
+else{  header("Location:login.php?status=success"); }
 ?> 
