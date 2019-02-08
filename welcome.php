@@ -1,6 +1,4 @@
-<?php
-session_start();
-?>
+<?php session_start();?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +8,9 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
-</head>
-<body>
+    <body>
     <h4> <center>Welcome <?php echo $_SESSION['email'];?></center></h4>
-   <a href="logout.php"> Logout</a>
-</body>
+    <a href="logout.php"> Logout</a>
+    </body>
+</head>
 </html>
