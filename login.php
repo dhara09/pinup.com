@@ -1,22 +1,22 @@
 <?php session_start(); ?>
 <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Login Page</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
-        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-        <script type="text/javascript"></script> 
- <script>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script type="text/javascript"></script> 
+    <script>
        $(document).ready(function(){
             $(document).keypress(function(e) 
             {
                 $('span').hide();
             }); 
-        $("#button").click(function()
-        {
+            $("#button").click(function()
+            {
                 var emails=$("#email1").val();
                 var check=0;
                 if(emails=="")
@@ -41,12 +41,22 @@
                 }
                 else{
                     return false;}
-	    });
+	        });
         }); 
     </script> 
-    <style>.error{color:red;}  
+    <script>
+    $(document).ready(function() {    
+        $(".success").click(function (){
+            $("#succ").stop().fadeOut("slow");
+        });
+        $("#succ").delay(2000).fadeOut("slow");
+    });
+    </script>
+    <style>.error{color:red;} 
+    .success{color:blue;} 
+    div {margin-bottom:350%;}
+    .center { text-align: center; border: 1px solid grey;}
     </style>
-
     <form id ="form" name="button" action="loginCheck.php" method="POST">
            <center> <h2><b>Login Form</b></h2></center>
             <label for="email"><b>Email :</b></label>
@@ -64,5 +74,11 @@
             <p>Not yet a member? <a href="signup.php">Sign up</a></p>  
     </form>
     <?php
-        if(isset($_GET['error']))echo $_GET['error'];     
+        if(isset($_GET['error']))echo $_GET['error'];
+        if( $_GET['status'] == 'success'):
+            echo '<div id ="succ" class="center"><span class="success" span id="suc"><center>You Have Successfully Registered !! </center></span></div>';
+        endif;  
+        if($_GET['status'] == 'error'):
+            echo '<div id ="succ" class="center"><span class="success" span id="suc"><center>Cannot Login!! Please Try Again </center></span></div>';
+        endif;  
         //if($errmsg!= "")echo $errmsg;  ?> 
