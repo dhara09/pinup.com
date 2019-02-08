@@ -1,12 +1,11 @@
 <?php
-if(!isset($_SESSION)){ 
-    session_start();}
+if(!isset($_SESSION)){ session_start();}
 if(isset($_POST['Users']['email'])) 
 { 
-    $email=$_POST['Users']['email'];
-    $password=$_POST['Users']['password'];
-    $errmsg='';
-    $check=0;
+        $email=$_POST['Users']['email'];
+        $password=$_POST['Users']['password'];
+        $errmsg='';
+        $check=0;
         if(empty($email)){
             $errmsg .= "Please Fill Email Address </br>" ;
             $check=1;
@@ -23,7 +22,7 @@ if(isset($_POST['Users']['email']))
             header("Location:http://local.pinup.com/login.php?error=$errmsg&email=$email");
             exit;
         }   
-    }
+}
 require_once("connection.php");
 $email=$_POST['Users']['email'];
 $password=$_POST['Users']['password'];
@@ -31,10 +30,9 @@ $userpass=md5($password);
 $query="SELECT * FROM User WHERE email='$email' and password='$userpass'";
 $result=mysqli_query($con,$query) or die(mysqli_error());
 $rows=mysqli_num_rows($result);
-if($rows == 1){
-     session_start();
-	$_SESSION['email']=$email;
-	header("location: welcome.php");
+if($rows == 1){  
+    session_start();
+    $_SESSION['email']=$email;
+	header("location: welcome.php?status=success");
 }
-else{  
-    header("location:login.php");}
+else{ header("location:login.php?status=error");}
