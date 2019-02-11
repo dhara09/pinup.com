@@ -23,7 +23,7 @@ if(isset($_POST['Users']['email']))
             exit;
         }   
 }
-require_once("connection.php");
+require_once("./connection/connection.php");
 $email=$_POST['Users']['email'];
 $password=$_POST['Users']['password'];
 $userpass=md5($password);
@@ -33,6 +33,5 @@ $rows=mysqli_num_rows($result);
 if($rows == 1){  
     session_start();
     $_SESSION['email']=$email;
-	header("location: welcome.php?status=success");
-}
+	header("location: welcome.php?status=success");}
 else{ header("location:login.php?status=error");}
