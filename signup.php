@@ -1,8 +1,22 @@
 <?php
 session_start(); 
-$rand=substr(rand(),0,4); 
+$rand=substr(rand(),0,4);
+//print_r($userArr);
+//echo base64_decode(json_decode($errmsg));
+//$array=$_REQUEST['userArr'];
+//echo $_REQUEST['userArr'];
+//echo $_REQUEST['userArr'];
+/* if($_SERVER["REQUEST_METHOD"] == "POST") {
+	if(count($_POST)>0) {
+	print "<PRE>";
+	print_r($_POST);
+	print "</PRE>";
+	}
+} */
+//cho $_REQUEST['query'];
 //echo "base64_decode(json_encode('data')";
-//echo "$userArr";
+//$arr=base64_decode(json_decode($query1));
+//print_r($_REQUEST);
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
@@ -10,6 +24,22 @@ $rand=substr(rand(),0,4);
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 <script type="text/javascript"></script> 
 <script>
+	function checkAvailability() 
+	{
+		$("#loaderIcon").show();
+		jQuery.ajax({
+		url: "ajax.php",
+		data:'email='+$("#email1").val(),
+		type: "POST",
+		success:function(data){
+		$("#user-availability-status").html(data);
+		$("#loaderIcon").hide();
+		},
+		error:function (){}
+		});
+	}
+</script>
+ <!-- <script>
     $(document).ready(function(){
     $(document).keypress(function(e) {
         $('span').hide();
@@ -96,6 +126,11 @@ $rand=substr(rand(),0,4);
 			$("#cpaspan").text("Combination Of Password Don't Match !").show();
 			check=1;
 		}
+		var cap=$("#chk").val();
+		if(cap == ""){
+			$("#capspan").text("Enter captcha").show();
+			check=1;
+		}
 		if(check==0)
 		{ 
 			return true;
@@ -103,44 +138,8 @@ $rand=substr(rand(),0,4);
       return false;
 	});
 });   
-</script>   
-<script>
-	function checkAvailability() 
-	{
-		$("#loaderIcon").show();
-		jQuery.ajax({
-		url: "ajax.php",
-		data:'email='+$("#email1").val(),
-		type: "POST",
-		success:function(data){
-		$("#user-availability-status").html(data);
-		$("#loaderIcon").hide();
-		},
-		error:function (){}
-		});
-	}
-</script>
+</script>   -->
 <script type="text/javascript">
-function captch() {
-    var x = document.getElementById("ran")
-    x.value = Math.floor((Math.random() * 10000) + 1);
-}
-function validation()
-{
-	if(document.form1.chk.value=="")
-	{
-	document.getElementById("error").innerHTML="Enter Captcha!";
-	document.form1.chk.focus();
-	return false;
-	}
-	if(document.form1.ran.value!=document.form1.chk.value)
-	{
-	document.getElementById("error").innerHTML="Captcha Not Matched!";
-	document.form1.chk.focus();
-	return false;
-	}
-	return true;
-}
 function captch() {
     var x = document.getElementById("ran")
     x.value = Math.floor((Math.random() * 10000) + 1);
@@ -149,7 +148,7 @@ function captch() {
 <style type="text/css">
 .captcha{
 width:60px; 
-background-image:url(cat.png); 
+background-image:url(../media/cat.png); 
 font-size:20px; 
 border: 1px solid;}
 .color{color:#FF0000;}
@@ -160,8 +159,8 @@ border: 1px solid;}
 </style>   
 		<form name="button" action="signupSave.php" method="POST" name="form1">
           <label for="name"><b>Name</b></label>
-          <br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]" 
-		  value="<?php if(isset($_GET['na']))echo $_GET['na'];?>">
+          <br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]"
+		  value="<?php if(isset($_GET['query1']))echo $_GET['query1'];?>">
           <span id="namespan" class="error"></span></br>
 
           <label for="lastname"><b>Last Name</b></label>
@@ -170,15 +169,18 @@ border: 1px solid;}
           <span id="lnamespan" class="error"></span></br>
 
           <label for="email"><b>Email</b></label>
-          <br> <input id="email1" type="text" onBlur="checkAvailability()" name="Users[email]" placeholder="Enter email">
+          <br> <input id="email1" type="text" onBlur="checkAvailability()" name="Users[email]" placeholder="Enter email"
+		  value="<?php if(isset($_GET['em']))echo $_GET['em'];?>">
           <span id="user-availability-status"></span><span id="emailspan" class="error"></span></br>
 
           <label for="address"><b>Address</b></label>
-          <br><input id="address1" type="text" placeholder="Enter Address" name="UserDetail[address]" value="Ijmima,Malad">
+          <br><input id="address1" type="text" placeholder="Enter Address" name="UserDetail[address]"
+		   value="Ijmima,Malad">
 	      <span id="addr1span" class="error"></span></br>
 
           <label for="contact"><b>Contact No</b></label>
-          <br><input id="contact1" type="text" placeholder="Enter Phone Number" name="UserDetail[contact]" value="1234567890">
+          <br><input id="contact1" type="text" placeholder="Enter Phone Number" name="UserDetail[contact]"
+		  value="1234567890">
 		  <span id="contact1span" class="error"></span></br>
 
           <label for="psw"><b>Password</b></label>
@@ -190,7 +192,7 @@ border: 1px solid;}
 		  <span id="cpaspan" class="error"></span></br>
 
 		  <label for="cap"><b>Enter Captcha</b></label>
-		  <br><input id="chk" type="text" name="code" name="chk" placeholder="Enter the Text you see">
+		  <br><input id="chk" type="text" name="code" name="chk" placeholder="Enter the Text you see" name="Users[captcha]"><span id="capspan" class="error"></span>
 		  <span id="error" class="color"></span></br>
 
 		  <input type="text" value="<?=$rand?>" id="ran" readonly="readonly" class="captcha">
@@ -198,8 +200,9 @@ border: 1px solid;}
 		
 		  <input type="hidden" name="chk" value="<?=$rand?>">
 
-          <br><button type="submit" value="submit" id="submit" name="submit" name="check" onclick="return validation();" class="signupbtn" style="align:justify">Register</button>
-		  <p><img src="LoaderIcon.gif" id="loaderIcon" style="display:none" /></p>
+          <br><button type="submit" value="submit" id="submit" name="submit" name="check" class="signupbtn" style="align:justify">Register</button>
+		  <p><span id='display'></span></p>
+		  <p><img src="../media/LoaderIcon.gif" id="loaderIcon" style="display:none" /></p>
 		</form> 
 		<?php 
 		if(isset($_GET['error']))echo $_GET['error'];
