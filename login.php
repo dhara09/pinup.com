@@ -81,5 +81,4 @@
         endif;  
         if($_GET['status'] == 'error'):
             echo '<div id ="succ" class="center"><span class="success" span id="suc"><center>Cannot Login!! Please Try Again </center></span></div>';
-        endif;  
-        //if($errmsg!= "")echo $errmsg;  ?> 
+        endif;  //if($errmsg!= "")echo $errmsg;  ?> 
