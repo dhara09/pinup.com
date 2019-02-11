@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script type="text/javascript"></script> 
-    <script>
+ <!-- <script>
        $(document).ready(function(){
             $(document).keypress(function(e) 
             {
@@ -43,7 +43,7 @@
                     return false;}
 	        });
         }); 
-    </script> 
+    </script>  -->
     <script>
     $(document).ready(function() {    
         $(".success").click(function (){
@@ -52,9 +52,10 @@
         $("#succ").delay(2000).fadeOut("slow");
     });
     </script>
-    <style>.error{color:red;} 
+    <style>
+    .error{color:red;} 
     .success{color:blue;} 
-    div {margin-bottom:350%;}
+     div{margin-bottom:350%;}
     .center { text-align: center; border: 1px solid grey;}
     </style>
     <form id ="form" name="button" action="loginCheck.php" method="POST">
@@ -72,7 +73,6 @@
 
             <button type="submit" value="submit" id="button" name="button">Login</button>
             <p>Not yet a member? <a href="signup.php">Sign up</a></p>  
-            <p><a href="forgotpassw.php">Forgot Password?</a></p> 
     </form>
     <?php
         if(isset($_GET['error']))echo $_GET['error'];
