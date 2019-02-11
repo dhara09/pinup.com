@@ -1,15 +1,5 @@
-<?php
-session_start();
-/* echo "<pre>"; print_r($_REQUEST);
-$userArr=print_r($_REQUEST);
-echo $userArr;
-exit *///;
-
-//header("Location: signup.php?data=base64_jsonencode($userArr)");
-//exit;
-/* $userArr=$_REQUEST[''];
-$userDetArr=$_REQUEST['']; */
-//$_REQUEST['userArr'];
+<?php session_start();
+echo "<pre>"; print_r($_REQUEST); echo "</pre>";
 $data=array(
     $name =  $_POST['Users']['name'],
     $lname = $_POST['Users']['lastname'],
@@ -18,16 +8,13 @@ $data=array(
     $contact = $_POST['UserDetail']['contact'],
     $pass = $_POST['Users']['password'],
     $cpass = $_POST['Users']['confirmpass'],
+    $cap=$_POST['Users']['cap']
 );
-$query = http_build_query(array('login' => $data));
-$query1=base64_encode(json_encode(http_build_query(array('login' => $data))));
-//echo $query1;
-//exit;
-//echo $query=http_build_query($data);
-//$encode=rawurlencode($query);
+//echo $query = http_build_query(array('url' => $data));
+//echo $query1=base64_encode(json_encode(http_build_query(array('login' => $data))));
+echo $query1=base64_encode(json_encode(http_build_query($data)));
+exit;
 //header("location:signup.php?data=".base64_encode(json_encode('$_REQUEST')));
-//header("location:signup.php?data=".rawurlencode($userArr));
-//exit;
 $errmsg='';
 $check=1;
 if(isset($_POST['Users']['name']) )
@@ -107,17 +94,27 @@ if(isset($_POST['Users']['name']) )
 		$errmsg .="Your Passwords Don't Match !!";
         $check=0;
     }
+    if(empty($cap)){
+        $errmsg .= "Enter the text you see!!";
+        $check=0;
+    }
     if($check == 0){  
-        header("Location:http://local.pinup.com/signup.php?error=$errmsg");
+        header("Location:signup.php?error=$errmsg");
         exit;
     }
 }
-require_once("connection.php");
+require_once("./connection/connection.php");
 $date = date('Y-m-d');
-$query="INSERT INTO User(name,lastname,email,password,createdDate,createdTime) VALUES ('".$_POST['Users']['name']."','".$_POST['Users']['lastname']."','".$_POST['Users']['email']."','".md5($_POST['Users']['password'])."','".$date."','".time('H:M:S')."');";
-$query .="INSERT INTO userDetail(address,contact,createdDate,createdTime) VALUES('".$_POST['UserDetail']['address']."','".$_POST['UserDetail']['contact']."','".$date."','".time('h:m:s')."');";
-if (!mysqli_multi_query($con,$query)){
-    die("<br> Error: Record not inserted ".mysqli_error());
-}
-else{  header("Location:login.php?status=success"); }
+$email=$_POST['Users']['email'];
+$duplicate=mysqli_query($con,"select email from User where email='$email'");
+if (mysqli_num_rows($duplicate)>0){
+    $errmsg .= "Email You Entered Exists already..";
+    header("Location:signup.php?error=$errmsg"); }
+else{
+        $query ="INSERT INTO User(name,lastname,email,password,createdDate,createdTime) VALUES ('".$_POST['Users']['name']."','".$_POST['Users']['lastname']."','".$_POST['Users']['email']."','".md5($_POST['Users']['password'])."','".$date."','".time('H:M:S')."');";
+        $query .="INSERT INTO userDetail(address,contact,createdDate,createdTime) VALUES('".$_POST['UserDetail']['address']."','".$_POST['UserDetail']['contact']."','".$date."','".time('h:m:s')."');";
+        if (!mysqli_multi_query($con,$query)){
+            die("<br> Error: Record not inserted ".mysqli_error()); }
+        else {  header("Location:login.php?status=success"); }
+    }      
 ?> 
