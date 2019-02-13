@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script type="text/javascript"></script> 
- <!-- <script>
+<!-- <script>
        $(document).ready(function(){
             $(document).keypress(function(e) 
             {
@@ -43,7 +43,7 @@
                     return false;}
 	        });
         }); 
-    </script>  -->
+    </script>   -->
     <script>
     $(document).ready(function() {    
         $(".success").click(function (){
@@ -75,6 +75,8 @@
             <p>Not yet a member? <a href="signup.php">Sign up</a></p>  
     </form>
     <?php
+    //$email1=base64_decode(json_decode($email));
+    //if(isset($_GET['$email1'])) echo $_GET['$email1'];
         if(isset($_GET['error']))echo $_GET['error'];
         if( $_GET['status'] == 'success'):
             echo '<div id ="succ" class="center"><span class="success" span id="suc"><center>You Have Successfully Registered !! </center></span></div>';
