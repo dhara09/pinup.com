@@ -1,5 +1,5 @@
 <?php
-if(!isset($_SESSION)){ session_start();}
+if(!isset($_SESSION)) { session_start();}
 if(isset($_POST['Users']['email'])) 
 { 
         $email=$_POST['Users']['email'];
@@ -19,7 +19,9 @@ if(isset($_POST['Users']['email']))
             $check=1;
         }
         if($check == 1){   
-            header("Location:http://local.pinup.com/login.php?error=$errmsg&email=$email");
+            //echo $url=base64_encode(json_encode($email));
+            //header("Location:http://local.pinup.com/login.php?error=$errmsg&email=$url");
+            header("location:http://local.pinup.com/login.php?error=$errmsg&email=$email");
             exit;
         }   
 }
@@ -33,5 +35,5 @@ $rows=mysqli_num_rows($result);
 if($rows == 1){  
     session_start();
     $_SESSION['email']=$email;
-	header("location: welcome.php?status=success");}
-else{ header("location:login.php?status=error");}
+    header("Location:welcome.php?status=success"); }
+else{ header("location:login.php?status=error");  }
