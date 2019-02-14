@@ -2,11 +2,12 @@
 if(!isset($_SESSION)) { session_start();}
 if(isset($_POST['Users']['email'])) 
 { 
-        $email=$_POST['Users']['email'];
-        $password=$_POST['Users']['password'];
-        $errmsg='';
-        $check=0;
-        if(empty($email)){
+    $email=$_POST['Users']['email'];
+    $password=$_POST['Users']['password'];
+    $errmsg='';
+    $check=0;
+    if(empty($email)){
+        //echo "test";
             $errmsg .= "Please Fill Email Address </br>" ;
             $check=1;
         }
@@ -18,9 +19,15 @@ if(isset($_POST['Users']['email']))
             $errmsg .= "Please Fill Your Password" ;
             $check=1;
         }
-        if($check == 1){   
+        if($check == 1){ 
+            //echo"error";
+            //exit; 
+            //$url=base64_encode($errmsg);
+            //header("Location :http://local.pinup.com/login.php?error=$url");
+
             //echo $url=base64_encode(json_encode($email));
             //header("Location:http://local.pinup.com/login.php?error=$errmsg&email=$url");
+        
             header("location:http://local.pinup.com/login.php?error=$errmsg&email=$email");
             exit;
         }   
