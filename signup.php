@@ -1,28 +1,11 @@
 <?php
 session_start(); 
 $rand=substr(rand(),0,4);
-//print_r($userArr);
-//echo base64_decode(json_decode($errmsg));
-//$array=$_REQUEST['userArr'];
-//echo $_REQUEST['userArr'];
-//echo $_REQUEST['userArr'];
-/* if($_SERVER["REQUEST_METHOD"] == "POST") {
-	if(count($_POST)>0) {
-	print "<PRE>";
-	print_r($_POST);
-	print "</PRE>";
-	}
-} */
-//cho $_REQUEST['query'];
-//echo "base64_decode(json_encode('data')";
-//$arr=base64_decode(json_decode($query1));
-//print_r($_REQUEST);
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-<script type="text/javascript"></script> 
 <script>
 	function checkAvailability() 
 	{
@@ -39,11 +22,11 @@ $rand=substr(rand(),0,4);
 		});
 	}
 </script>
- <!-- <script>
+<!--  <script>
     $(document).ready(function(){
-    $(document).keypress(function(e) {
-        $('span').hide();
-    });
+	$('input').keyup(function(){
+		$(this).siblings('span').hide();
+	});
 	$("#submit").click(function()
     {
 		var check=0;
@@ -67,18 +50,12 @@ $rand=substr(rand(),0,4);
 			$("#lnamespan").text("Use Only Alphabets").show();
 			check=1;
 		}
-		var emails=$("#email1").val();
-		if(emails == "")
+		var email=$("#email1").val();
+		if(email == "")
 		{
 			$("#emailspan").text("Please Enter Your Email Address").show();
 			check=1;
 		}
-		else if(!emails.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
-        {
-            $("#emailspan").text("Enter Valid Email Address ").show();
-            check=1;
-        }
-
 		var address=$("#address1").val();
 		if(address == "")
 		{
@@ -139,7 +116,7 @@ $rand=substr(rand(),0,4);
 	});
 });   
 </script>   -->
-<script type="text/javascript">
+<script>
 function captch() {
     var x = document.getElementById("ran")
     x.value = Math.floor((Math.random() * 10000) + 1);
@@ -155,55 +132,76 @@ border: 1px solid;}
 .status-available{color:#2FC332;}
 .status-not-available{color:#D60202;}
 .error{color:red;}
-
+ #user-availability-status{ display:Inline!important;} 
 </style>   
-		<form name="button" action="signupSave.php" method="POST" name="form1">
-          <label for="name"><b>Name</b></label>
-          <br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]"
-		  value="<?php if(isset($_GET['query1']))echo $_GET['query1'];?>">
-          <span id="namespan" class="error"></span></br>
+		<form name="button" id="input" action="signupSave.php" method="POST" name="form1">
+	
+		<span>
+			<label for="name"><b>Name : </b></label>
+			<br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]"
+			value="<?php if(isset($_GET['na']))echo $_GET['na'];?>">
+			<span id="namespan" class="error"></span></br>
+		</span>
 
-          <label for="lastname"><b>Last Name</b></label>
-          <br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]" 
-		  value="<?php if(isset($_GET['ln']))echo $_GET['ln'];?>">
-          <span id="lnamespan" class="error"></span></br>
+		<span>
+			<label for="lastname"><b>Last Name : </b></label>
+			<br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]" 
+			value="<?php if(isset($_GET['ln']))echo $_GET['ln'];?>">
+			<span id="lnamespan" class="error"></span></br>
+		</span>
 
-          <label for="email"><b>Email</b></label>
-          <br> <input id="email1" type="text" onBlur="checkAvailability()" name="Users[email]" placeholder="Enter email"
-		  value="<?php if(isset($_GET['em']))echo $_GET['em'];?>">
-          <span id="user-availability-status"></span><span id="emailspan" class="error"></span></br>
+		<span>
+			<label for="email"><b>Email</b></label>
+			<br><input id="email1" class="email" type="text" onBlur="checkAvailability()" name="Users[email]" placeholder="Enter email"
+			value="<?php if(isset($_GET['email']))echo $_GET['email'];?>">
+			<span id="user-availability-status"></span><span id="emailspan" class="error"></span></br>
+		</span>
 
-          <label for="address"><b>Address</b></label>
-          <br><input id="address1" type="text" placeholder="Enter Address" name="UserDetail[address]"
-		   value="Ijmima,Malad">
-	      <span id="addr1span" class="error"></span></br>
+		<span>
+			<label for="address"><b>Address</b></label>
+			<br><input id="address1" type="text" placeholder="Enter Address" name="UserDetail[address]"
+			value="<?php if(isset($_GET['ad']))echo $_GET['ad'];?>">
+			<span id="addr1span" class="error"></span></br>
+		</span>
 
-          <label for="contact"><b>Contact No</b></label>
-          <br><input id="contact1" type="text" placeholder="Enter Phone Number" name="UserDetail[contact]"
-		  value="1234567890">
-		  <span id="contact1span" class="error"></span></br>
+		<span>
+			<label for="contact"><b>Contact No</b></label>
+			<br><input id="contact1" type="text" placeholder="Enter Phone Number" name="UserDetail[contact]"
+			value="<?php if(isset($_GET['cn']))echo $_GET['cn'];?>">
+			<span id="contact1span" class="error"></span></br>
+		</span>
 
-          <label for="psw"><b>Password</b></label>
-          <br><input id="password1" type="password" placeholder="Enter Password" name="Users[password]">
-          <span id="passspan" class="error"></span></br>
+		<span>
+			<label for="psw"><b>Password</b></label>
+			<br><input id="password1" type="password" placeholder="Enter Password" name="Users[password]"
+			value="<?php if(isset($_GET['ps']))echo $_GET['ps'];?>">
+			<span id="passspan" class="error"></span></br>
+		</span>
 
-          <label for="pswd"><b>Confirm password</b></label>
-          <br><input id="confrmpass1" type="password" placeholder="Confirm Password" name="Users[confirmpass]">
-		  <span id="cpaspan" class="error"></span></br>
+		<span>
+			<label for="pswd"><b>Confirm password</b></label>
+			<br><input id="confrmpass1" type="password" placeholder="Confirm Password" name="Users[confirmpass]"
+			value="<?php if(isset($_GET['cp']))echo $_GET['cp'];?>">
+			<span id="cpaspan" class="error"></span></br>
+		</span>
 
-		  <label for="cap"><b>Enter Captcha</b></label>
-		  <br><input id="chk" type="text" name="code" name="chk" placeholder="Enter the Text you see" name="Users[captcha]"><span id="capspan" class="error"></span>
-		  <span id="error" class="color"></span></br>
-
+		<span>
+			<label for="cap"><b>Enter Captcha</b></label>
+			<br><input id="chk" type="text" name="code" name="chk" placeholder="Enter the Text you see" name="Users[captcha]"><span id="capspan" class="error"></span>
+			<span id="error" class="color"></span></br>
+		</span>
+		
+		<span>
 		  <input type="text" value="<?=$rand?>" id="ran" readonly="readonly" class="captcha">
 		  <input type="button" value="Refresh" onclick="captch()" />
+		</span>
 		
-		  <input type="hidden" name="chk" value="<?=$rand?>">
+		 <!--  <input type="hidden" name="chk" value="<?=$rand?>"> -->
 
           <br><button type="submit" value="submit" id="submit" name="submit" name="check" class="signupbtn" style="align:justify">Register</button>
-		  <p><span id='display'></span></p>
-		  <p><img src="../media/LoaderIcon.gif" id="loaderIcon" style="display:none" /></p>
+		  <p><img src="../media/LoaderIcon.gif" id="loaderIcon" style="display:none"/></p>
+	
 		</form> 
 		<?php 
 		if(isset($_GET['error']))echo $_GET['error'];
-		  //if($errmsg!= "")echo $errmsg; ?>
+		?>
