@@ -86,13 +86,11 @@ if(isset($_POST['Users']['name']) )
 		$errmsg .="And So Your Passwords Don't Match !!";
         $check=0;
     }
-    /* if(empty($cap)){
-        $errmsg .="Please Fill Captcha text ";
-        $check=0;
-    } */
     if($check == 0){ 
-       // $err=base64_encode(json_encode(($errmsg))); 
-     header("location:signup.php?error=$errmsg&na=$name&ln=$lname&email=$email&ad=$address&cn=$contact&ps=$pass&cp=$cpass");
+        $url=base64_encode($errmsg);
+        $url1=base64_encode($name); $url2=base64_encode($lname); $url3=base64_encode($email);
+        $url4=base64_encode($address); $url5=base64_encode($contact); $url6=base64_encode($pass);$url7=base64_encode($cpass);
+        header("location:signup.php?error=$url&na=$url1&ln=$url2&em=$url3&ad=$url4&cn=$url5&ps=$url6&cp=$url7");
        //header("Location:signup.php?error=$err");
        exit;
     }
@@ -103,12 +101,13 @@ $email=$_POST['Users']['email'];
 $duplicate=mysqli_query($con,"select email from User where email='$email'");
 if (mysqli_num_rows($duplicate)>0){
    $errmsg .= "Email You Entered Exists already..";
-    header("Location:signup.php?error=$errmsg"); }
+   $url=base64_encode($errmsg);
+    header("Location:signup.php?error=$url"); }
 else{
         $query ="INSERT INTO User(name,lastname,email,password,createdDate,createdTime) VALUES ('".$_POST['Users']['name']."','".$_POST['Users']['lastname']."','".$_POST['Users']['email']."','".md5($_POST['Users']['password'])."','".$date."','".time('H:M:S')."');";
         $query .="INSERT INTO userDetail(address,contact,createdDate,createdTime) VALUES('".$_POST['UserDetail']['address']."','".$_POST['UserDetail']['contact']."','".$date."','".time('H:M:S')."');";
         if (!mysqli_multi_query($con,$query)){
             die("<br> Error: Record not inserted ".mysqli_error()); }
         else {  header("Location:login.php?status=success"); }
-    }        
+    }         
 ?> 
