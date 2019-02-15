@@ -1,5 +1,4 @@
 <?php
-if(!isset($_SESSION)) { session_start();}
 if(isset($_POST['Users']['email'])) 
 { 
     $email=$_POST['Users']['email'];
@@ -7,7 +6,6 @@ if(isset($_POST['Users']['email']))
     $errmsg='';
     $check=0;
     if(empty($email)){
-        //echo "test";
             $errmsg .= "Please Fill Email Address </br>" ;
             $check=1;
         }
@@ -20,17 +18,10 @@ if(isset($_POST['Users']['email']))
             $check=1;
         }
         if($check == 1){ 
-            //echo"error";
-            //exit; 
-            //$url=base64_encode($errmsg);
-            //header("Location :http://local.pinup.com/login.php?error=$url");
-
-            //echo $url=base64_encode(json_encode($email));
-            //header("Location:http://local.pinup.com/login.php?error=$errmsg&email=$url");
-        
-            header("location:http://local.pinup.com/login.php?error=$errmsg&email=$email");
+            $url=base64_encode($errmsg); $url1=base64_encode($email); $url2=base64_encode($password);
+            header("Location:http://local.pinup.com/login.php?error=$url&email1=$url1&pass=$url2");
             exit;
-        }   
+        }  
 }
 require_once("./connection/connection.php");
 $email=$_POST['Users']['email'];
@@ -43,4 +34,5 @@ if($rows == 1){
     session_start();
     $_SESSION['email']=$email;
     header("Location:welcome.php?status=success"); }
-else{ header("location:login.php?status=error");  }
+else{ 
+    header("location:login.php?status=error");  }
