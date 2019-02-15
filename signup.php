@@ -15,20 +15,25 @@ $rand=substr(rand(),0,4);
 		data:'email='+$("#email1").val(),
 		type: "POST",
 		success:function(data){
-		$("#user-availability-status").html(data);
-		$("#loaderIcon").hide();
+			$("#user-availability-status").html(data);
+			$("#loaderIcon").hide();
+			/* if(data==1){
+				alert("Email already Exists");
+				return true;
+			}
+			return false; */
 		},
 		error:function (){}
 		});
 	}
 </script>
-<!--  <script>
+ <!-- <script>
     $(document).ready(function(){
-	$('input').keyup(function(){
-		$(this).siblings('span').hide();
-	});
-	$("#submit").click(function()
-    {
+		$('input').keyup(function(){
+			$(this).siblings('span').hide();
+		});
+		$("#submit").click(function()
+		{
 		var check=0;
 		var names=$("#name1").val();
         if(names ==""){
@@ -115,13 +120,33 @@ $rand=substr(rand(),0,4);
       return false;
 	});
 });   
-</script>   -->
+</script>  -->
 <script>
 function captch() {
     var x = document.getElementById("ran")
     x.value = Math.floor((Math.random() * 10000) + 1);
 }
 </script>
+<script>
+/* function emailverification() {
+	var email =$("#email1").val();
+	alert(email); */
+	/* $('#submit').click(function()
+    var emailVal = $('#email1').val();
+    $.post('checkemail.php', {'email1' : email}, function(data) {
+        if(data=='exist') {  alert("email exits");} 
+    });
+}); */
+/* --------------------------- */
+	/* var email=$("#email1").val();
+	$echeck="Select email from User where email='$email'";
+	$echk=mysqli_query($echeck);
+	$ecount=mysqli_num_rows($echk);
+	if($ecount!=0)
+	{alert("user exits");} */
+//}
+</script>
+
 <style type="text/css">
 .captcha{
 width:60px; 
@@ -134,54 +159,55 @@ border: 1px solid;}
 .error{color:red;}
  #user-availability-status{ display:Inline!important;} 
 </style>   
-		<form name="button" id="input" action="signupSave.php" method="POST" name="form1">
-	
+
+	<form name="button" id="input" action="signupSave.php" method="POST" name="form1">
+	<center> <h2><b>Signup Form</b></h2></center>
 		<span>
 			<label for="name"><b>Name : </b></label>
-			<br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]"
-			value="<?php if(isset($_GET['na']))echo $_GET['na'];?>">
+			<br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]" value="dhara"
+			value="<?php if(isset($_GET['na']))echo base64_decode($_GET['na']);?>">
 			<span id="namespan" class="error"></span></br>
 		</span>
 
 		<span>
 			<label for="lastname"><b>Last Name : </b></label>
-			<br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]" 
-			value="<?php if(isset($_GET['ln']))echo $_GET['ln'];?>">
+			<br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]" value="salot"
+			value="<?php if(isset($_GET['ln']))echo base64_decode($_GET['ln']);?>">
 			<span id="lnamespan" class="error"></span></br>
 		</span>
 
 		<span>
 			<label for="email"><b>Email</b></label>
 			<br><input id="email1" class="email" type="text" onBlur="checkAvailability()" name="Users[email]" placeholder="Enter email"
-			value="<?php if(isset($_GET['email']))echo $_GET['email'];?>">
+			value="<?php if(isset($_GET['email']))echo base64_decode($_GET['em']);?>"> <span id="email-status"></span> 
 			<span id="user-availability-status"></span><span id="emailspan" class="error"></span></br>
 		</span>
 
 		<span>
 			<label for="address"><b>Address</b></label>
-			<br><input id="address1" type="text" placeholder="Enter Address" name="UserDetail[address]"
-			value="<?php if(isset($_GET['ad']))echo $_GET['ad'];?>">
+			<br><input id="address1" type="text" placeholder="Enter Address" name="UserDetail[address]" value="Ijmima"
+			value="<?php if(isset($_GET['ad']))echo base64_decode($_GET['ad']);?>">
 			<span id="addr1span" class="error"></span></br>
 		</span>
 
 		<span>
 			<label for="contact"><b>Contact No</b></label>
-			<br><input id="contact1" type="text" placeholder="Enter Phone Number" name="UserDetail[contact]"
-			value="<?php if(isset($_GET['cn']))echo $_GET['cn'];?>">
+			<br><input id="contact1" type="text" placeholder="Enter Phone Number" name="UserDetail[contact]" value="1234567890"
+			value="<?php if(isset($_GET['cn']))echo base64_decode($_GET['cn']);?>">
 			<span id="contact1span" class="error"></span></br>
 		</span>
 
 		<span>
 			<label for="psw"><b>Password</b></label>
-			<br><input id="password1" type="password" placeholder="Enter Password" name="Users[password]"
-			value="<?php if(isset($_GET['ps']))echo $_GET['ps'];?>">
+			<br><input id="password1" type="password" placeholder="Enter Password" name="Users[password]" value="sadsad"
+			value="<?php if(isset($_GET['ps']))echo base64_decode($_GET['ps']);?>">
 			<span id="passspan" class="error"></span></br>
 		</span>
 
 		<span>
 			<label for="pswd"><b>Confirm password</b></label>
-			<br><input id="confrmpass1" type="password" placeholder="Confirm Password" name="Users[confirmpass]"
-			value="<?php if(isset($_GET['cp']))echo $_GET['cp'];?>">
+			<br><input id="confrmpass1" type="password" placeholder="Confirm Password" name="Users[confirmpass]" value="sadsad"
+			value="<?php if(isset($_GET['cp']))echo base64_decode($_GET['cp']);?>">
 			<span id="cpaspan" class="error"></span></br>
 		</span>
 
@@ -198,10 +224,10 @@ border: 1px solid;}
 		
 		 <!--  <input type="hidden" name="chk" value="<?=$rand?>"> -->
 
-          <br><button type="submit" value="submit" id="submit" name="submit" name="check" class="signupbtn" style="align:justify">Register</button>
+          <br><button onclick="return emailverification()" type="submit" value="submit"  id="submit" name="submit" name="check" class="signupbtn" style="align:justify">Register</button>
 		  <p><img src="../media/LoaderIcon.gif" id="loaderIcon" style="display:none"/></p>
 	
-		</form> 
+	</form> 
 		<?php 
-		if(isset($_GET['error']))echo $_GET['error'];
+		if(isset($_GET['error']))echo base64_decode($_GET['error']);
 		?>
