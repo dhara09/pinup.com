@@ -20,12 +20,13 @@ if(isset($_POST['Users']['email']))
         if($check == 1){ 
             $url=base64_encode($errmsg); $url1=base64_encode($email); $url2=base64_encode($password);
             header("Location:http://local.pinup.com/login.php?error=$url&email1=$url1&pass=$url2");
-            exit;
+            return true;
         }  
 }
 require_once("./connection/connection.php");
 $email=$_POST['Users']['email'];
 $password=$_POST['Users']['password'];
+$url1=base64_encode($email);
 $userpass=md5($password);
 $query="SELECT * FROM User WHERE email='$email' and password='$userpass'";
 $result=mysqli_query($con,$query) or die(mysqli_error());
@@ -35,4 +36,4 @@ if($rows == 1){
     $_SESSION['email']=$email;
     header("Location:welcome.php?status=success"); }
 else{ 
-    header("location:login.php?status=error");  }
+    header("location:login.php?status=error&email1=$url1");  }
