@@ -2,6 +2,7 @@
 session_start(); 
 $rand=substr(rand(),0,4);
 ?>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -164,50 +165,50 @@ border: 1px solid;}
 	<center> <h2><b>Signup Form</b></h2></center>
 		<span>
 			<label for="name"><b>Name : </b></label>
-			<br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]" value="dhara"
-			value="<?php if(isset($_GET['na']))echo base64_decode($_GET['na']);?>">
+			<br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]"
+			value="<?php if(isset($_GET['user']))echo base64_decode($_GET['user']);?>">
 			<span id="namespan" class="error"></span></br>
 		</span>
 
 		<span>
 			<label for="lastname"><b>Last Name : </b></label>
-			<br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]" value="salot"
-			value="<?php if(isset($_GET['ln']))echo base64_decode($_GET['ln']);?>">
+			<br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]"
+			value="<?php if(isset($_GET['user']))echo base64_decode($_GET['user']);?>">
 			<span id="lnamespan" class="error"></span></br>
 		</span>
 
 		<span>
 			<label for="email"><b>Email</b></label>
 			<br><input id="email1" class="email" type="text" onBlur="checkAvailability()" name="Users[email]" placeholder="Enter email"
-			value="<?php if(isset($_GET['email']))echo base64_decode($_GET['em']);?>"> <span id="email-status"></span> 
+			value="<?php if(isset($_GET['email']))echo base64_decode($_GET['email']);?>"> <span id="email-status"></span> 
 			<span id="user-availability-status"></span><span id="emailspan" class="error"></span></br>
 		</span>
 
 		<span>
 			<label for="address"><b>Address</b></label>
-			<br><input id="address1" type="text" placeholder="Enter Address" name="UserDetail[address]" value="Ijmima"
-			value="<?php if(isset($_GET['ad']))echo base64_decode($_GET['ad']);?>">
+			<br><input id="address1" type="text" placeholder="Enter Address" name="UserDetail[address]"
+			value="<?php if(isset($_GET['userD']))echo base64_decode($_GET['userD']);?>">
 			<span id="addr1span" class="error"></span></br>
 		</span>
 
 		<span>
 			<label for="contact"><b>Contact No</b></label>
-			<br><input id="contact1" type="text" placeholder="Enter Phone Number" name="UserDetail[contact]" value="1234567890"
-			value="<?php if(isset($_GET['cn']))echo base64_decode($_GET['cn']);?>">
+			<br><input id="contact1" type="text" placeholder="Enter Phone Number" name="UserDetail[contact]" 
+			value="<?php if(isset($_GET['userD']))echo base64_decode($_GET['userD']);?>">
 			<span id="contact1span" class="error"></span></br>
 		</span>
 
 		<span>
 			<label for="psw"><b>Password</b></label>
-			<br><input id="password1" type="password" placeholder="Enter Password" name="Users[password]" value="sadsad"
-			value="<?php if(isset($_GET['ps']))echo base64_decode($_GET['ps']);?>">
+			<br><input id="password1" type="password" placeholder="Enter Password" name="Users[password]" 
+			value="<?php if(isset($_GET['userD']))echo base64_decode($_GET['userD']);?>">
 			<span id="passspan" class="error"></span></br>
 		</span>
 
 		<span>
 			<label for="pswd"><b>Confirm password</b></label>
-			<br><input id="confrmpass1" type="password" placeholder="Confirm Password" name="Users[confirmpass]" value="sadsad"
-			value="<?php if(isset($_GET['cp']))echo base64_decode($_GET['cp']);?>">
+			<br><input id="confrmpass1" type="password" placeholder="Confirm Password" name="confirmpass"
+			value="<?php if(isset($_GET['userD']))echo base64_decode($_GET['userD']);?>">
 			<span id="cpaspan" class="error"></span></br>
 		</span>
 
