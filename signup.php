@@ -1,8 +1,12 @@
 <?php
 session_start(); 
 $rand=substr(rand(),0,4);
-?>
+if(isset($_GET['error']))
+$errArr = (array)json_decode(base64_decode($_GET['error']));
 
+if(isset($_GET['userDataArr'])) 
+$userDataArr = (array)json_decode(base64_decode($_GET['userDataArr']));  
+?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -18,11 +22,6 @@ $rand=substr(rand(),0,4);
 		success:function(data){
 			$("#user-availability-status").html(data);
 			$("#loaderIcon").hide();
-			/* if(data==1){
-				alert("Email already Exists");
-				return true;
-			}
-			return false; */
 		},
 		error:function (){}
 		});
@@ -166,50 +165,51 @@ border: 1px solid;}
 		<span>
 			<label for="name"><b>Name : </b></label>
 			<br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]"
-			value="<?php if(isset($_GET['user']))echo base64_decode($_GET['user']);?>">
-			<span id="namespan" class="error"></span></br>
+			value="<?php if(isset($_GET['userDataArr'])) echo base64_decode($_GET['userDataArr']);?>">
+			<span id="namespan" class="error"><?php echo $errArr['name'] ?></span></br>
 		</span>
 
 		<span>
 			<label for="lastname"><b>Last Name : </b></label>
 			<br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]"
-			value="<?php if(isset($_GET['user']))echo base64_decode($_GET['user']);?>">
-			<span id="lnamespan" class="error"></span></br>
+			value="<?php if(isset($_GET['userDataArr']))echo base64_decode(json_decode($_GET['userData']));?>">
+			<span id= "lnamespan" class="error"><?php echo $errArr['lastname'] ?></span></br>
 		</span>
 
 		<span>
 			<label for="email"><b>Email</b></label>
 			<br><input id="email1" class="email" type="text" onBlur="checkAvailability()" name="Users[email]" placeholder="Enter email"
-			value="<?php if(isset($_GET['email']))echo base64_decode($_GET['email']);?>"> <span id="email-status"></span> 
-			<span id="user-availability-status"></span><span id="emailspan" class="error"></span></br>
+			value="<?php if(isset($_GET['user']))echo base64_decode($_GET['user']);?>"> <span id="email-status"></span> 
+			<span id="user-availability-status"></span><span id="emailspan" class="error">
+			<?php echo $errArr['email'] ?></span></br>
 		</span>
 
 		<span>
 			<label for="address"><b>Address</b></label>
 			<br><input id="address1" type="text" placeholder="Enter Address" name="UserDetail[address]"
 			value="<?php if(isset($_GET['userD']))echo base64_decode($_GET['userD']);?>">
-			<span id="addr1span" class="error"></span></br>
+			<span id="addr1span" class="error"><?php echo $errArr['address'] ?></span></br>
 		</span>
 
 		<span>
 			<label for="contact"><b>Contact No</b></label>
 			<br><input id="contact1" type="text" placeholder="Enter Phone Number" name="UserDetail[contact]" 
 			value="<?php if(isset($_GET['userD']))echo base64_decode($_GET['userD']);?>">
-			<span id="contact1span" class="error"></span></br>
+			<span id="contact1span" class="error"><?php echo $errArr['contact'] ?></span></br>
 		</span>
 
 		<span>
 			<label for="psw"><b>Password</b></label>
 			<br><input id="password1" type="password" placeholder="Enter Password" name="Users[password]" 
 			value="<?php if(isset($_GET['userD']))echo base64_decode($_GET['userD']);?>">
-			<span id="passspan" class="error"></span></br>
+			<span id="passspan" class="error"><?php echo $errArr['password'] ?></span></br>
 		</span>
 
 		<span>
 			<label for="pswd"><b>Confirm password</b></label>
 			<br><input id="confrmpass1" type="password" placeholder="Confirm Password" name="confirmpass"
 			value="<?php if(isset($_GET['userD']))echo base64_decode($_GET['userD']);?>">
-			<span id="cpaspan" class="error"></span></br>
+			<span id="cpaspan" class="error"><?php echo $errArr['confirmpass'] ?></span></br>
 		</span>
 
 		<span>
@@ -229,6 +229,13 @@ border: 1px solid;}
 		  <p><img src="../media/LoaderIcon.gif" id="loaderIcon" style="display:none"/></p>
 	
 	</form> 
+		<?php
+		//echo "<pre>"; print_r($errArr['name']);exit; 
+		//echo $abc = var_dump(base64_decode($_GET['error']));exit;
+		//if(isset($_GET['error']))echo base64_decode($_GET['error']);
+		?>
 		<?php 
-		if(isset($_GET['error']))echo base64_decode($_GET['error']);
+		/* function decode(){
+			if(isset($_GET['userData']))echo(base64_decode(json_decode($_GET['userData']))); 
+		} */
 		?>
