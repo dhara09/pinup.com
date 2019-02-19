@@ -1,101 +1,104 @@
 <?php session_start();
 $userArr= $_REQUEST['Users'];
 $userDetailArr= $_REQUEST['UserDetail'];
-$errmsg='';
+/* $userArray=array(
+    $userArr= $_REQUEST['Users'],
+    $userDetailArr= $_REQUEST['UserDetail'],
+); */
+$errmsgArr=array();
 $check=1;
-if(isset($_POST['Users']['name']))
- //if($_SERVER["REQUEST_METHOD"] == "POST")
+
+if($_SERVER["REQUEST_METHOD"] == "POST")  
 {  
-   if(empty($userArr['name'])){ 
-        $errmsg .="Please Fill Your Name <br>";
+    /* Name */
+    if(empty($userArr['name'])){ 
+        $errmsgArr['name'] = "Please Fill Your Name";
         $check=0;
     }
-     else if(!preg_match("/^[a-zA-Z ]*$/",$userArr['name'])) {
-        $errmsg .=" Use only Alphabets for Name <br>";
+    else if(!preg_match("/^[a-zA-Z ]*$/",$userArr['name'])) {
+        $errmsgArr['name'] = "Use only Alphabets for Name ";
         $check=0;
     }
     else if(strlen($userArr['name']) <= 2){
-        $errmsg .="Enter valid Name <br>";
+        $errmsgArr['name'] = "Enter valid Name ";
         $check=0;
     }
-   if(empty($userArr['lastname'])){
-        $errmsg .="Please Fill Your Last Name <br>";
+     
+    /* Last Name */
+    if(empty($userArr['lastname'])){
+        $errmsgArr['lastname'] = "Please Fill Your Last Name ";
         $check=0;
     }
     else if(!preg_match("/^[a-zA-Z ]*$/",$userArr['lastname'])) {
-        $errmsg .= "Use Only Alphabets for Name <br>";
+        $errmsgArr['lastname'] = "Use Only Alphabets for Name ";
         $check=0;
     }
     else if(strlen($userArr['lastname'])<=2){
-        $errmsg .="Enter Valid LastName <br>";
+        $errmsgArr['lastname'] = "Enter Valid LastName ";
+        $check=0;
+    }  
+
+    /* Email */
+    if(empty($userArr['email'])) {
+        $errmsgArr['email'] ="Please Fill your Email Address";
         $check=0;
     } 
+        else if(!filter_var($userArr['email'], FILTER_VALIDATE_EMAIL)){
+        $errmsgArr['email'] =" Enter Valid Email Address ";
+        $check=0;
+    }  
+        
+    /* Address */
+    if(empty($userDetailArr['address'])) {
+        $errmsgArr['address'] ="Please Fill Your Address ";
+        $check=0;
+    }  
     
-    if(empty($userArr['email'])){
-        $errmsg .="Please Fill your Email Address<br>";
+    /* Contact */
+    if(empty($userDetailArr['contact'])){
+        $errmsgArr['contact'] ="Please Fill the Your Contact ";
         $check=0;
     }
-    else if(!filter_var($userArr['email'], FILTER_VALIDATE_EMAIL)){
-        $errmsg .=" Enter Valid Email Address <br>";
-        $check=0;
-    }
-    /* if(empty($userDetailArr['address'])) {
-        $errmsg .="Please Fill Your Address <br>";
-        $check=0;
-    }  */
-    
-   /*  if(empty($userDetailArr['contact'])){
-        $errmsg .="Please Fill the Your Contact <br>";
-        $check=0;
-    }
-    
     else if(strlen($userDetailArr['contact']) < 10){
-        $errmsg .= "Enter 10 Digits Number <br>";
-        $check=0;
-    } */
-    
-   /*  if(empty($userDetailArr['password'])){
-        $errmsg .="Please Fill Your Password <br>";
-        $check=0;
-    }
-    else if(strlen($userDetailArr['password']) <=5){
-        $errmsg .="Enter Mininmum 5-8 Characters For Password <br>";
-        $check=0;
-    }    */     
-    
-   /*  if(empty($userDetailArr['confirmpass'])){
-        $errmsg .=" Please Confirm Your password <br>";
-        $check=0;
-    }
-    
-    else if(strlen($cpass)<=5){
-        $errmsg .= "Enter Minimum 5-8 Characters For Confirm Password<br>";
-        $check=0;
-	} */ 
-    
-    if($check == 0)
-    { 
-        $url=base64_encode($errmsg);
-        $url1=base64_encode($userArr);
-        $url2=base64_encode($userDetail);
-        header("Location:signup.php?error=$url&user=$url1&userD=$url2");
-        exit;
-    }
-	/* if($pass !== $cpass){
-		$errmsg .="And So Your Passwords Don't Match !!";
+        $errmsgArr['contact'] = "Enter 10 Digits Number ";
         $check=0;
     } 
-    if($check == 0){ 
-        $url=base64_encode($errmsg);
-        $url1=base64_encode($userArr);
-        $url2=base64_encode($userDetail);
-        header("Location:signup.php?error=$url&user=$url1&userD=$url2");
-        exit;
-    }  */
-//}
-        /* $url7=base64_encode($cpass);
-        header("location:signup.php?error=$url&na=$url1&ln=$url2&em=$url3&ad=$url4&cn=$url5&ps=$url6&"); */
-}
+        
+    /* Password */
+    if(empty($userArr['password'])){
+        $errmsgArr['password'] ="Please Fill Your Password ";
+        $check=0;
+    }
+    else if(strlen($userArr['password']) <=5){
+        $errmsgArr['password'] ="Enter Mininmum 5-8 Characters For Password ";
+        $check=0;
+    }        
+    
+    /* Confirm Password */
+    if(empty($_POST['confirmpass'])){
+        $errmsgArr['confirmpass'] =" Please Confirm Your password ";
+        $check=0;
+    }
+
+    else if(strlen($_POST['confirmpass'])<=5){
+        $errmsgArr['confirmpass'] = "Enter Minimum 5-8 Characters For Confirm Password";
+        $check=0;
+    } 
+
+    if($userArr['password'] !== $_POST['confirmpass']){
+        $errmsgArr['confirmpass'] ="And So Your Passwords Don't Match !!";
+        $check=0;
+    } 
+    /* Condition */
+        if($check == 0){ 
+            $userDataArr=base64_encode($userArr);
+            $errArr = base64_encode(json_encode($errmsgArr));
+            //$userDataArr = base64_encode($_REQUEST);
+            //print_r($userDataArr);
+            header("Location:signup.php?error=$errArr&userDataArr=$userDataArr"); 
+            return true;
+        }  
+}  
 require_once("./connection/connection.php");
 $date = date('Y-m-d');
 $email=$_POST['Users']['email'];
@@ -106,15 +109,18 @@ if (mysqli_num_rows($duplicate)>0)
    $url=base64_encode($errmsg);
    header("Location:signup.php?error=$url"); 
 }
-else{
+else{ 
+    /* $formData=array(
+        $userArr=$_REQUEST['Users'],
+        $userDetailArr=$_REQUEST['UserDetail'],
+    ); */
     require_once("function.php");
+    $query=InsertRow('User',$userArr);
+    $query1=InsertRow('userDetail', $userDetailArr);
 }
 //header("Location:login.php?status=success");
 /* --------------------------------------------------------------------------------------- */
-        /* $query ="INSERT INTO User(name,lastname,email,password,createdDate,createdTime) VALUES ('".$_POST['Users']['name']."','".$_POST['Users']['lastname']."','".$_POST['Users']['email']."','".md5($_POST['Users']['password'])."','".$date."','".time('H:M:S')."');";
-        $query .="INSERT INTO userDetail(address,contact,createdDate,createdTime) VALUES('".$_POST['UserDetail']['address']."','".$_POST['UserDetail']['contact']."','".$date."','".time('H:M:S')."');";
-        if (!mysqli_multi_query($con,$query)){
+        /* if (!mysqli_multi_query($con,$query)){
             die("<br> Error: Record not inserted ".mysqli_error()); }
-        else {  header("Location:login.php?status=success"); }
-    }          */
+         else {  header("Location:login.php?status=success"); }        */  
 ?> 
