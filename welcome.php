@@ -1,4 +1,10 @@
-<?php session_start();?>
+<?php 
+include("auth.php");
+session_start();
+if(!isset($_SESSION['email'])){
+ header("location: welcome.php");}
+$email=$_SESSION['email'];
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +15,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
     <body>
-    <h4> <center>Welcome <?php echo $_SESSION['email'];?></center></h4>
+    <h4> <center>Welcome <?php echo $email;?></center></h4>
     <a href="logout.php"> Logout</a>
     </body>
 </head>
