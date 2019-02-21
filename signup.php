@@ -1,11 +1,14 @@
 <?php
 session_start(); 
+if(isset($_SESSION['email'])){
+header("location: welcome.php"); }	
 $rand=substr(rand(),0,4);
+
 if(isset($_GET['error']))
 $errArr = (array)json_decode(base64_decode($_GET['error']));
 
 if(isset($_GET['userDataArr'])) 
-$userDataArr = (array)json_decode(base64_decode($_GET['userDataArr']));  
+$userDataArr = (array)json_decode(base64_decode($_GET['userDataArr']));   
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
@@ -127,27 +130,7 @@ function captch() {
     x.value = Math.floor((Math.random() * 10000) + 1);
 }
 </script>
-<script>
-/* function emailverification() {
-	var email =$("#email1").val();
-	alert(email); */
-	/* $('#submit').click(function()
-    var emailVal = $('#email1').val();
-    $.post('checkemail.php', {'email1' : email}, function(data) {
-        if(data=='exist') {  alert("email exits");} 
-    });
-}); */
-/* --------------------------- */
-	/* var email=$("#email1").val();
-	$echeck="Select email from User where email='$email'";
-	$echk=mysqli_query($echeck);
-	$ecount=mysqli_num_rows($echk);
-	if($ecount!=0)
-	{alert("user exits");} */
-//}
-</script>
-
-<style type="text/css">
+<style>
 .captcha{
 width:60px; 
 background-image:url(../media/cat.png); 
@@ -165,21 +148,21 @@ border: 1px solid;}
 		<span>
 			<label for="name"><b>Name : </b></label>
 			<br><input id="name1" type="text" placeholder="Enter Name" name="Users[name]"
-			value="<?php if(isset($_GET['userDataArr'])) echo base64_decode($_GET['userDataArr']);?>">
+			value="<?php if(isset($_GET['userArr'])) echo json_decode(base64_decode($_GET['userArr']));?>">
 			<span id="namespan" class="error"><?php echo $errArr['name'] ?></span></br>
 		</span>
 
 		<span>
 			<label for="lastname"><b>Last Name : </b></label>
 			<br> <input id="lname1" type="text" placeholder="Enter LastName" name="Users[lastname]"
-			value="<?php if(isset($_GET['userDataArr']))echo base64_decode(json_decode($_GET['userData']));?>">
+			value="<?php echo $_GET['$userDataArr'];?>">
 			<span id= "lnamespan" class="error"><?php echo $errArr['lastname'] ?></span></br>
 		</span>
 
 		<span>
 			<label for="email"><b>Email</b></label>
 			<br><input id="email1" class="email" type="text" onBlur="checkAvailability()" name="Users[email]" placeholder="Enter email"
-			value="<?php if(isset($_GET['user']))echo base64_decode($_GET['user']);?>"> <span id="email-status"></span> 
+			value="<?php echo $_GET['$userDataArr'];?>"><span id="email-status"></span> 
 			<span id="user-availability-status"></span><span id="emailspan" class="error">
 			<?php echo $errArr['email'] ?></span></br>
 		</span>
@@ -187,28 +170,28 @@ border: 1px solid;}
 		<span>
 			<label for="address"><b>Address</b></label>
 			<br><input id="address1" type="text" placeholder="Enter Address" name="UserDetail[address]"
-			value="<?php if(isset($_GET['userD']))echo base64_decode($_GET['userD']);?>">
+			value="<?php echo $_GET['$userDataArr'];?>">
 			<span id="addr1span" class="error"><?php echo $errArr['address'] ?></span></br>
 		</span>
 
 		<span>
 			<label for="contact"><b>Contact No</b></label>
 			<br><input id="contact1" type="text" placeholder="Enter Phone Number" name="UserDetail[contact]" 
-			value="<?php if(isset($_GET['userD']))echo base64_decode($_GET['userD']);?>">
+			value="<?php echo $_GET['$userDataArr'];?>">
 			<span id="contact1span" class="error"><?php echo $errArr['contact'] ?></span></br>
 		</span>
 
 		<span>
 			<label for="psw"><b>Password</b></label>
 			<br><input id="password1" type="password" placeholder="Enter Password" name="Users[password]" 
-			value="<?php if(isset($_GET['userD']))echo base64_decode($_GET['userD']);?>">
+			value="<?php echo $_GET['$userDataArr'];?>">
 			<span id="passspan" class="error"><?php echo $errArr['password'] ?></span></br>
 		</span>
 
 		<span>
 			<label for="pswd"><b>Confirm password</b></label>
 			<br><input id="confrmpass1" type="password" placeholder="Confirm Password" name="confirmpass"
-			value="<?php if(isset($_GET['userD']))echo base64_decode($_GET['userD']);?>">
+			value="<?php echo $_GET['$userDataArr'];?>">
 			<span id="cpaspan" class="error"><?php echo $errArr['confirmpass'] ?></span></br>
 		</span>
 
@@ -236,6 +219,7 @@ border: 1px solid;}
 		?>
 		<?php 
 		/* function decode(){
-			if(isset($_GET['userData']))echo(base64_decode(json_decode($_GET['userData']))); 
+		 return base64_decode(json_decode($_GET['userData']));
+		 return base64_decode(json_decode($_GET['userDetailArr])); 
 		} */
 		?>
