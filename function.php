@@ -1,8 +1,11 @@
 <?php
-function InsertRow($tableName,$formData){
-
-    $fields = array_keys($userArr);
-    $sql="INSERT INTO ".$tableName."(`".implode('`,`', $fields)."`) VALUES('".implode("','", $formData)."')";
-    return mysqli_query($sql);
+require_once("./connection/connection.php");
+function InsertRow($tableName,$user){
+    global $con;
+    $fields = array_keys($user);
+    $sql="INSERT INTO ".$tableName."(`".implode('`,`', $fields)."`) VALUES('".implode("','", $user)."')";
+    mysqli_query($con,$sql);
+    $lastId = mysqli_insert_id($con);
+    return $lastId;
 }
 ?>
