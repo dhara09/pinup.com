@@ -1,5 +1,9 @@
-<?php session_start();
-//include_once("../css/stylesheet.css"); ?>
+<?php 
+$email=$_POST['email'];
+session_start();
+if(isset($_SESSION['email'])){
+ header("Location:welcome.php");} 
+?>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Login Page</title>
