@@ -36,4 +36,4 @@ if($rows == 1){
     $_SESSION['email']=$email;
     header("Location:welcome.php?status=success"); }
 else{ 
-    header("location:login.php?status=error&email1=$url1");  }
+      header("location:login.php?status=error&email1=$url1");  }
