@@ -1,15 +1,11 @@
 <?php session_start();
-$userArr= $_REQUEST['Users'];
+$userArr=$_REQUEST['Users'];
+echo $userArr;
 $userDetailArr= $_REQUEST['UserDetail'];
-/* $userArray=array(
-    $userArr= $_REQUEST['Users'],
-    $userDetailArr= $_REQUEST['UserDetail'],
-); */
 $errmsgArr=array();
 $check=1;
-
 if($_SERVER["REQUEST_METHOD"] == "POST")  
-{  
+{
     /* Name */
     if(empty($userArr['name'])){ 
         $errmsgArr['name'] = "Please Fill Your Name";
@@ -91,36 +87,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     } 
     /* Condition */
         if($check == 0){ 
-            $userDataArr=base64_encode($userArr);
             $errArr = base64_encode(json_encode($errmsgArr));
-            //$userDataArr = base64_encode($_REQUEST);
-            //print_r($userDataArr);
-            header("Location:signup.php?error=$errArr&userDataArr=$userDataArr"); 
-            return true;
-        }  
-}  
-require_once("./connection/connection.php");
-$date = date('Y-m-d');
-$email=$_POST['Users']['email'];
-$duplicate=mysqli_query($con,"select email from User where email='$email'");
-if (mysqli_num_rows($duplicate)>0)
+            $user=base64_encode(json_encode($userArr['name']));
+            // echo $user;
+            // exit;
+            $userDataArr= base64_encode(json_encode($userDetailArr));
+            
+            //echo $userDataArr;
+            //exit;
+            header("Location:signup.php?userArr=$user");
+            //header("Location:signup.php?error=$errArr&userDataArr=$userDataArr&userDataArr=$user");
+            //exit;
+            //return true;
+        }   
+}   
+require_once("function.php");
+
+$userArr=$_REQUEST['Users'];
+$userDetailArr=$_REQUEST['UserDetail'];
+$userArr['password'] = md5($userArr['password']);
+$uId=InsertRow('User',$userArr);
+if($uId > 0)
 {
-   $errmsg .= "Email You Entered Exists already..";
-   $url=base64_encode($errmsg);
-   header("Location:signup.php?error=$url"); 
+    $userDetailArr['userId'] = $uId;
+    $udId = InsertRow('userDetail',$userDetailArr);
 }
-else{ 
-    /* $formData=array(
-        $userArr=$_REQUEST['Users'],
-        $userDetailArr=$_REQUEST['UserDetail'],
-    ); */
-    require_once("function.php");
-    $query=InsertRow('User',$userArr);
-    $query1=InsertRow('userDetail', $userDetailArr);
-}
-//header("Location:login.php?status=success");
-/* --------------------------------------------------------------------------------------- */
-        /* if (!mysqli_multi_query($con,$query)){
-            die("<br> Error: Record not inserted ".mysqli_error()); }
-         else {  header("Location:login.php?status=success"); }        */  
+//header("Location:login.php?status=success"); 
 ?> 
