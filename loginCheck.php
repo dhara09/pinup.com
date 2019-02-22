@@ -26,9 +26,9 @@ if(isset($_POST['Users']['email']))
 require_once("./connection/connection.php");
 $email=$_POST['Users']['email'];
 $password=$_POST['Users']['password'];
-$url1=base64_encode($email);
+$url1=base64_encode(json_encode($email));
 $userpass=md5($password);
-$query="SELECT * FROM User WHERE email='$email' and password='$userpass'";
+$query="SELECT * FROM user WHERE email='$email' and password='$userpass'";
 global $con;
 $result=mysqli_query($con,$query) or die(mysqli_error());
 $rows=mysqli_num_rows($result);
