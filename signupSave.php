@@ -1,6 +1,5 @@
 <?php session_start();
 $userArr=$_REQUEST['Users'];
-echo $userArr;
 $userDetailArr= $_REQUEST['UserDetail'];
 $errmsgArr=array();
 $check=1;
@@ -85,32 +84,36 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $errmsgArr['confirmpass'] ="And So Your Passwords Don't Match !!";
         $check=0;
     } 
-    /* Condition */
-        if($check == 0){ 
-            $errArr = base64_encode(json_encode($errmsgArr));
-            $user=base64_encode(json_encode($userArr['name']));
-            // echo $user;
-            // exit;
-            $userDataArr= base64_encode(json_encode($userDetailArr));
-            
-            //echo $userDataArr;
-            //exit;
-            header("Location:signup.php?userArr=$user");
-            //header("Location:signup.php?error=$errArr&userDataArr=$userDataArr&userDataArr=$user");
-            //exit;
-            //return true;
-        }   
+    if($check == 0){ 
+        $errArr = base64_encode(json_encode($errmsgArr));
+        $userDataArr=base64_encode(json_encode($userArr));
+        $userDetailArr=base64_encode(json_encode($userDetailArr));
+        header("Location:signup.php?error=$errArr&userDataArr=$userDataArr&userDetailArr=$userDetailArr");
+        return true;
+    }     
 }   
+$date = date('Y-m-d');
+$email=$_POST['Users']['email'];
+global $con;
+$duplicate=mysqli_query($con,"select email from user where email='$email'");
+if (mysqli_num_rows($duplicate)>0)
+{
+    echo "Email You Entered Exists already..";
+}
+//  if (!mysqli_query($con,$query))
+//  {        
+//     die("<br> Error: Record not inserted ".mysqli_error()); 
+//  }   
+else {  
 require_once("function.php");
-
 $userArr=$_REQUEST['Users'];
 $userDetailArr=$_REQUEST['UserDetail'];
 $userArr['password'] = md5($userArr['password']);
-$uId=InsertRow('User',$userArr);
-if($uId > 0)
-{
+$uId=InsertRow('user',$userArr);
+if($uId > 0){
     $userDetailArr['userId'] = $uId;
     $udId = InsertRow('userDetail',$userDetailArr);
 }
-//header("Location:login.php?status=success"); 
+}
+header("Location:login.php?status=success"); 
 ?> 
