@@ -1,18 +1,15 @@
 <?php 
-$email=$_POST['email'];
 session_start();
-if(isset($_SESSION['email'])){
- header("Location:welcome.php");} 
+require_once("function.php");
+callSession();
 ?>
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Login Page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script> 
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script src="../Lib files/jquery-2.1.1.min.js"></script>
+    <script src="../Lib files/ui 1.11.4 jquery-ui.js"></script>
+    <script src="../Lib files/ajax libs jquery-validate 1.17.0 jquery.validate.js"></script>
+    <script src="../Lib files/ajax libs jquery 3.3.1 jquery.min.js"></script>
+    <script src="../Lib files/bootstrap 3.3.7 css bootstrap.min.css"></script>
 <!-- <script>
        $(document).ready(function(){
             $('input').keyup(function(){
@@ -89,4 +86,5 @@ if(isset($_SESSION['email'])){
         endif;  
         if($_GET['status'] == 'error'):
             echo '<div id ="succ" class="center"><span class="success" span id="suc"><center>Cannot Login!! Combination of Email & Password Dont Match...Please Try Again </center></span></div>';
-        endif;   //if($errmsg!= "")echo $errmsg;   ?>  
+        endif;    
+    ?>  
