@@ -8,4 +8,10 @@ function InsertRow($tableName,$user){
     $lastId = mysqli_insert_id($con);
     return $lastId;
 }
+function callSession()
+{
+    $email=$_POST['email'];
+    if(isset($_SESSION['email'])){
+    header("location: welcome.php");}
+}
 ?>
