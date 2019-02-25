@@ -1,6 +1,7 @@
 <?php session_start (); 
-if(isset($_SESSION['email'])){
-    header("location: welcome.php"); }?>
+require_once("function.php");
+callSession();
+?>
 <html>
 <center>
 <button onclick="window.location.href='login.php'" type="submit" value="submit" name="submit">Login</button>
